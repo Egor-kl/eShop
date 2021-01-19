@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{BB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Services\Identity\Identity\Identity.csproj", "{D4A7B135-2504-4E97-A698-3827B2AAB29D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{FE5BE446-0C9D-4C08-88E1-8ED7B6CEAC9C}"
+ProjectSection(SolutionItems) = preProject
+	deploy\DockerfileIdentity = deploy\DockerfileIdentity
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
