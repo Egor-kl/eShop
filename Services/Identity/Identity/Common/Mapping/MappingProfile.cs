@@ -9,6 +9,9 @@ namespace Identity.Common.Mapping
     /// </summary>
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Constructor automapper
+        /// </summary>
         public MappingProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
