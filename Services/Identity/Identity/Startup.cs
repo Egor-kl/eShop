@@ -1,4 +1,5 @@
 using AutoMapper;
+using Identity.Common.Extensions;
 using Identity.Common.Interfaces;
 using Identity.Infrastructure;
 using Identity.Services;
@@ -29,13 +30,11 @@ namespace Identity
             services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddScoped<IIdentityContext, IdentityContext>();
-            services.AddScoped<IUserService, UserService>();
-
-            services.AddSingleton(Log.Logger);
-
-            services.AddSwaggerGen();
+            
+            services.AddScopedServices(); // In  identity/common/extensions/DI
+            services.AddSerilogService();
+            services.AddJwtService(Configuration);
+            services.AddSwaggerService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +43,9 @@ namespace Identity
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
             }
             
+            app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity v1"));
 
             app.UseHttpsRedirection();

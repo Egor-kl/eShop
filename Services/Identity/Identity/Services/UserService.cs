@@ -8,9 +8,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Identity.Common.Interfaces;
+using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Identity.Services
@@ -19,17 +21,20 @@ namespace Identity.Services
     {
         private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
+        private readonly Settings _settings;
 
         /// <summary>
         /// Constructor of service for managing user accounts.
         /// </summary>
         /// <param name="identityContext">Identity service.</param>
         /// <param name="mapper">Mapping service.</param>
+        /// <param name="settings">Application settings.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserService( IIdentityContext identityContext, IMapper mapper)
+        public UserService(IIdentityContext identityContext, IMapper mapper, IOptions<Settings> settings)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
         /// <inheritdoc/>
@@ -44,7 +49,7 @@ namespace Identity.Services
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("secret");
+            var key = Encoding.ASCII.GetBytes(_settings.Secret);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
