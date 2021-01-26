@@ -40,7 +40,7 @@ namespace Identity.Controllers
             var (id, success, message) = await _userService.RegisterAsync(userDTO);
             if (!success)
             {
-                _logger.Warning($"{userDTO.Email} account already exist");
+                _logger.Warning($"{userDTO.Email} user already exist");
                 return Conflict(new { message });
             }
 
@@ -61,26 +61,112 @@ namespace Identity.Controllers
             var token = await _userService.LoginAsync(loginDTO);
             if (token == null)
             {
-                _logger.Warning($"{loginDTO.Email} account not found");
+                _logger.Warning($"{loginDTO.Email} user not found");
                 return NoContent();
             }
 
             _logger.Information($"{loginDTO.Email} is login");
-            _logger.Information($"{User.Identity.Name} {User.Identity.AuthenticationType}");
 
             Response.ContentType = "application/json";
             return Accepted(token);
         }
         
-        // GET: api/accounts
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ICollection<UserDTO>> GetAccounts()
         {
-            var accounts = await _userService.GetAllUsersAsync();
-            var count = accounts.Count;
+            var users = await _userService.GetAllUsersAsync();
+            var count = users.Count;
 
-            _logger.Information($"{count} of users");
-            return accounts;
+            _logger.Information($"{count} count of users");
+            return users;
+        }
+        
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getById/{id}")]
+        public async Task<IActionResult> GetAccountById([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                _logger.Warning($"User with id: {id} not found");
+                return NoContent();
+            }
+
+            _logger.Information($"{user.UserName} user found");
+            return Ok(user);
+        }
+        
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getByUsername/{username}")]
+        public async Task<IActionResult> GetAccountByUserName([FromRoute] string username)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userService.GetUserByUsernameAsync(username);
+            if (user == null)
+            {
+                _logger.Warning($"User with username: {username} not found");
+                return NoContent();
+            }
+
+            _logger.Information($"{user.UserName} user found");
+            return Ok(user);
+        }
+        
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteById/{id}")]
+        public async Task<IActionResult> DeleteAccountById([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var success = await _userService.DeleteUserByIdAsync(id);
+            if (!success)
+            {
+                _logger.Warning($"User with id: {id} not found");
+                return NotFound(id);
+            }
+
+            _logger.Information($"{id} successfully delete");
+            return Ok(id);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateById/{id}")]
+        public async Task<IActionResult> UpdateAccount([FromBody] UserDTO userDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userService.GetUserByEmailAsync(userDTO.Email);
+            if (user == null)
+            {
+                _logger.Warning($"{userDTO.Email}");
+                return NotFound(userDTO.Id);
+            }
+
+            var success = await _userService.UpdateUserAsync(userDTO);
+            if (!success)
+            {
+                _logger.Warning($"{userDTO.Email} update conflict");
+                return Conflict();
+            }
+            
+            _logger.Information($"{userDTO.Email} update user succes");
+            return Ok(userDTO);
         }
     }
 }
