@@ -51,7 +51,8 @@ namespace Identity.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
                 }),
                 Expires = DateTime.UtcNow.AddDays(31),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
