@@ -28,6 +28,6 @@
         /// <summary>
         /// User role.
         /// </summary>
-        public int Role { get; set; }
+        public string Role { get; set; }
     }
 }

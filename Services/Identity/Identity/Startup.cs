@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using Identity.Common.Interfaces;
 using Identity.Infrastructure;
+using Identity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace Identity
 {
@@ -32,6 +26,9 @@ namespace Identity
             services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IIdentityContext, IdentityContext>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddSwaggerGen();
         }
