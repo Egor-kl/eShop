@@ -16,7 +16,7 @@ namespace Identity.Infrastructure.Migrations
                     Email = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     UserName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Password = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
