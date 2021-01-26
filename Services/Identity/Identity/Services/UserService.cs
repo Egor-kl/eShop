@@ -11,6 +11,7 @@ using Identity.Common.Interfaces;
 using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -38,7 +39,7 @@ namespace Identity.Services
         }
 
         /// <inheritdoc/>
-        public async Task<TokenDTO> LoginAsync(LoginDTO loginDTO)
+        public async Task<TokenDTO> LoginAsync([FromBody] LoginDTO loginDTO)
         {
             if (loginDTO == null)
                 return null;
@@ -56,12 +57,10 @@ namespace Identity.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role),
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(31),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                                                            SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwtSecurityToken = tokenHandler.WriteToken(token);

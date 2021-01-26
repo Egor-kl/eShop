@@ -1,17 +1,12 @@
 using AutoMapper;
 using Identity.Common.Extensions;
-using Identity.Common.Interfaces;
 using Identity.Infrastructure;
-using Identity.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Serilog;
 
 namespace Identity
 {
@@ -45,12 +40,10 @@ namespace Identity
                 app.UseDeveloperExceptionPage();
             }
             
+            app.UseRouting();
+            
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity v1"));
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();

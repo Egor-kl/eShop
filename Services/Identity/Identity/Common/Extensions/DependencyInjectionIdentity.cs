@@ -61,7 +61,7 @@ namespace Identity.Common.Extensions
             })
             .AddJwtBearer(opt =>
             {
-                opt.RequireHttpsMetadata = false; // "false" -- only for debug.
+                opt.RequireHttpsMetadata = true;
                 opt.SaveToken = true;
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {

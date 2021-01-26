@@ -65,10 +65,22 @@ namespace Identity.Controllers
                 return NoContent();
             }
 
-            _logger.Information($"{loginDTO.Email} get account");
+            _logger.Information($"{loginDTO.Email} is login");
+            _logger.Information($"{User.Identity.Name} {User.Identity.AuthenticationType}");
 
             Response.ContentType = "application/json";
             return Accepted(token);
+        }
+        
+        // GET: api/accounts
+        [HttpGet]
+        public async Task<ICollection<UserDTO>> GetAccounts()
+        {
+            var accounts = await _userService.GetAllUsersAsync();
+            var count = accounts.Count;
+
+            _logger.Information($"{count} of users");
+            return accounts;
         }
     }
 }
