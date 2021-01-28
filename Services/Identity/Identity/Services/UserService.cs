@@ -11,6 +11,7 @@ using Identity.Common.Interfaces;
 using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -43,6 +44,8 @@ namespace Identity.Services
         {
             if (loginDTO == null)
                 return null;
+
+            loginDTO.Password = PasswordToSHA256Hash(loginDTO.Password);
             
             var user = await _identityContext.Users.SingleOrDefaultAsync(x=> x.Email == loginDTO.Email && x.Password == loginDTO.Password);
            
@@ -79,6 +82,8 @@ namespace Identity.Services
         /// <inheritdoc/>
         public async Task<(int id, bool result, string message)> RegisterAsync(UserDTO userDTO)
         {
+            userDTO.Password = PasswordToSHA256Hash(userDTO.Password);
+            
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Email == userDTO.Email || a.UserName == userDTO.UserName 
                                                                          || a.Email == userDTO.Email && a.UserName == userDTO.UserName);
             if (user != null)
@@ -171,6 +176,26 @@ namespace Identity.Services
             await _identityContext.SaveChangesAsync(new CancellationToken());
 
             return true;
+        }
+        
+        /// <summary>
+        /// Password hashing
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private string PasswordToSHA256Hash(string password)
+        {
+            // step 1, calculate MD5 hash from input
+            var sha256 = SHA256.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(password);
+            byte[] hash = sha256.ComputeHash(inputBytes);
+            // step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
         }
     }
 }
