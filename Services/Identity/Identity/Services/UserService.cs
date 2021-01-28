@@ -185,11 +185,9 @@ namespace Identity.Services
         /// <returns></returns>
         private string PasswordToSHA256Hash(string password)
         {
-            // step 1, calculate MD5 hash from input
             var sha256 = SHA256.Create();
             byte[] inputBytes = Encoding.ASCII.GetBytes(password);
             byte[] hash = sha256.ComputeHash(inputBytes);
-            // step 2, convert byte array to hex string
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < hash.Length; i++)
             {

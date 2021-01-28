@@ -19,15 +19,15 @@ namespace Identity.Infrastructure.EntityConfigure
 
             builder.Property(user => user.Email)
                 .IsRequired()
-                .HasMaxLength(40);
+                .HasMaxLength(50);
 
             builder.Property(user => user.Password)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(255);
 
             builder.Property(user => user.UserName)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(50);
 
             builder.Property(user => user.Role).IsRequired();
         }

@@ -13,9 +13,9 @@ namespace Identity.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Email = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
-                    UserName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Password = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    UserName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
