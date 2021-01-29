@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Services\Identi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{FE5BE446-0C9D-4C08-88E1-8ED7B6CEAC9C}"
 ProjectSection(SolutionItems) = preProject
-	deploy\DockerfileIdentity = deploy\DockerfileIdentity
+	deploy\DockerfileIdentity = deploy\Identity.Dockerfile
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8ABAEA1F-6B99-42B9-9107-A8D7C73FD177}"
