@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Identity.Test
 {
-    public class UnitTest1
+    public class UserControllerTests : ControllerTestFixture
     {
         [Fact]
         public async void RegisterNewAccount_WithValidModel_Returns_CreatedAtActionResult()
