@@ -1,7 +1,5 @@
-﻿using System;
-using Identity.Common.Interfaces;
+﻿using Identity.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;

@@ -186,9 +186,9 @@ namespace Identity.Services
         private string PasswordToSHA256Hash(string password)
         {
             var sha256 = SHA256.Create();
-            byte[] inputBytes = Encoding.ASCII.GetBytes(password);
-            byte[] hash = sha256.ComputeHash(inputBytes);
-            StringBuilder sb = new StringBuilder();
+            var inputBytes = Encoding.ASCII.GetBytes(password);
+            var hash = sha256.ComputeHash(inputBytes);
+            var sb = new StringBuilder();
             for (int i = 0; i < hash.Length; i++)
             {
                 sb.Append(hash[i].ToString("X2"));

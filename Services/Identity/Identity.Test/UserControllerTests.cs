@@ -101,6 +101,7 @@ namespace Identity.Test
             Assert.IsAssignableFrom<TokenDTO>(acceptedResult.Value);
         }
         
+        [Fact]
         public async void Login_WhenAccountDoesNotExist_Returns_NoContentResult()
         {
             // Arrange
@@ -243,7 +244,6 @@ namespace Identity.Test
             Assert.IsAssignableFrom<UserDTO>(okResult.Value);
         }
 
-
         [Fact]
         public async void DeleteAccount_WithInvalidModelId_Returns_NotFoundResult()
         {
@@ -379,7 +379,7 @@ namespace Identity.Test
             var result = await controller.GetAccountById(id);
 
             // Assert
-            var noContentResult = Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NoContentResult>(result);
         }
     }
 }
