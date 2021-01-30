@@ -13,8 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Services\Identi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{FE5BE446-0C9D-4C08-88E1-8ED7B6CEAC9C}"
 ProjectSection(SolutionItems) = preProject
-	deploy\DockerfileIdentity = deploy\DockerfileIdentity
+	deploy\DockerfileIdentity = deploy\Identity.Dockerfile
 EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8ABAEA1F-6B99-42B9-9107-A8D7C73FD177}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Test", "Services\Identity\Identity.Test\Identity.Test.csproj", "{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,7 @@ Global
 		{6AA7323E-2B9B-4876-A045-BFB4CAC994B1} = {BB7FECDB-0634-4D71-92CB-11AC1120B6F6}
 		{BBEF216B-173B-4F23-B81C-337C2C7D9D3E} = {6AA7323E-2B9B-4876-A045-BFB4CAC994B1}
 		{D4A7B135-2504-4E97-A698-3827B2AAB29D} = {BBEF216B-173B-4F23-B81C-337C2C7D9D3E}
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992} = {8ABAEA1F-6B99-42B9-9107-A8D7C73FD177}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D4A7B135-2504-4E97-A698-3827B2AAB29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,5 +51,17 @@ Global
 		{D4A7B135-2504-4E97-A698-3827B2AAB29D}.Release|x64.Build.0 = Release|Any CPU
 		{D4A7B135-2504-4E97-A698-3827B2AAB29D}.Release|x86.ActiveCfg = Release|Any CPU
 		{D4A7B135-2504-4E97-A698-3827B2AAB29D}.Release|x86.Build.0 = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|x64.Build.0 = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Debug|x86.Build.0 = Debug|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|x64.ActiveCfg = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|x64.Build.0 = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|x86.ActiveCfg = Release|Any CPU
+		{5ABEB1D2-A20C-4D10-B8CA-8ACD918D7992}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
