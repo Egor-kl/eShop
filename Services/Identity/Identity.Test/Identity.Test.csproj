@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Identity\Identity.csproj" />
+      <ProjectReference Include="..\Identity.API\Identity.API.csproj" />
     </ItemGroup>
 
 </Project>
