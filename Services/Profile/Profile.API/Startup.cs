@@ -13,7 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Profile.API.Common.Interfaces;
 using Profile.API.Infrastructure;
+using Profile.API.Services;
 
 namespace Profile.API
 {
@@ -31,6 +33,7 @@ namespace Profile.API
         {
             services.AddDbContext<ProfileContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
+            services.AddScoped<ILogerService, SerilogService>();
             services.AddAutoMapper(typeof(Startup));
             
             services.AddSwaggerGen(c =>
