@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Profile.API.Models
+namespace Profile.API.DTO
 {
-    /// <summary>
-    /// Profile entity.
-    /// </summary>
-    public class Profile
+    public class ProfileDTO
     {
-        /// <summary>
-        /// Profile identifier.
-        /// </summary>
-        public int Id { get; set; }
-        
         /// <summary>
         /// First name user.
         /// </summary>
@@ -37,15 +28,5 @@ namespace Profile.API.Models
         /// User avatar.
         /// </summary>
         public byte[] Avatars { get; set; }
-
-        /// <summary>
-        /// User discount.
-        /// </summary>
-        public double Discount { get; set; }
-        
-        /// <summary>
-        /// User purchases.
-        /// </summary>
-        public List<string> Purchases { get; set; }
     }
 }
