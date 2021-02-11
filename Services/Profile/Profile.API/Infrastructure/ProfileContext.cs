@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Profile.API.Common.Interfaces;
 using Profile.API.Infrastructure.EntityConfigure;
 
 namespace Profile.API.Infrastructure
 {
-    public class ProfileContext : DbContext
+    public class ProfileContext : DbContext, IProfileContext
     {
         /// <summary>
         /// Constructor of identity context.
