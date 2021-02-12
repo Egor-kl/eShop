@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -68,7 +67,16 @@ namespace Profile.API.Services
         /// <inheritdoc/>
         public async Task<ProfileDTO> GetProfileByUserIdAsync(int userId)
         {
-            throw new System.NotImplementedException();
+            var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.UserId == userId);
+            
+            if(profile == null)
+            {
+                return null;
+            }
+
+            var profileDTO = _mapper.Map<Models.Profile, ProfileDTO>(profile);
+
+            return profileDTO;
         }
 
         /// <inheritdoc/>
@@ -121,7 +129,17 @@ namespace Profile.API.Services
         /// <inheritdoc/>
         public async Task<bool> DeleteProfileByUserIdAsync(int userId)
         {
-            throw new System.NotImplementedException();
+            var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
+            if (profileFound == null)
+            {
+                _logger.Error("Profile not found");
+                return false;
+            }
+
+            _context.Remove(profileFound);
+            await _context.SaveChangesAsync(new CancellationToken());
+
+            return true;
         }
     }
 }
