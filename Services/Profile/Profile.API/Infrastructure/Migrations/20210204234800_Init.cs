@@ -21,7 +21,8 @@ namespace Profile.API.Infrastructure.Migrations
                     Phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     Avatars = table.Column<byte[]>(type: "bytea", nullable: true),
                     Discount = table.Column<double>(type: "double precision", nullable: false),
-                    Purchases = table.Column<List<string>>(type: "text[]", nullable: true)
+                    Purchases = table.Column<List<string>>(type: "text[]", nullable: true),
+                    UserId = table.Column<int>("integer", nullable: false)
                 },
                 constraints: table =>
                 {

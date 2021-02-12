@@ -11,7 +11,7 @@ using Profile.API.Infrastructure;
 namespace Profile.API.Infrastructure.Migrations
 {
     [DbContext(typeof(ProfileContext))]
-    [Migration("20210204234800_Init")]
+    [Migration("20210212135205_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,9 @@ namespace Profile.API.Infrastructure.Migrations
 
                     b.Property<List<string>>("Purchases")
                         .HasColumnType("text[]");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

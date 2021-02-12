@@ -51,6 +51,9 @@ namespace Profile.API.Infrastructure.Migrations
                     b.Property<List<string>>("Purchases")
                         .HasColumnType("text[]");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");

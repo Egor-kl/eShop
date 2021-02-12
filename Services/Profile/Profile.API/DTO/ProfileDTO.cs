@@ -33,5 +33,10 @@ namespace Profile.API.DTO
         /// User avatar.
         /// </summary>
         public byte[] Avatars { get; set; }
+        
+        /// <summary>
+        /// User id.
+        /// </summary>
+        public int UserId { get; set; }
     }
 }

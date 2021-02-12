@@ -47,5 +47,10 @@ namespace Profile.API.Models
         /// User purchases.
         /// </summary>
         public List<string> Purchases { get; set; }
+
+        /// <summary>
+        /// User id.
+        /// </summary>
+        public int UserId { get; set; }
     }
 }
