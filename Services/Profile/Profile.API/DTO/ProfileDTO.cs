@@ -5,6 +5,11 @@ namespace Profile.API.DTO
     public class ProfileDTO
     {
         /// <summary>
+        /// User identifier.
+        /// </summary>
+        public int Id { get; set; }
+        
+        /// <summary>
         /// First name user.
         /// </summary>
         public string FirstName { get; set; }
