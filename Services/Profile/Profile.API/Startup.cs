@@ -34,6 +34,7 @@ namespace Profile.API
             services.AddDbContext<ProfileContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
             services.AddSerilogService();
+            services.AddScopedServices();
             services.AddAutoMapper(typeof(Startup));
             
             services.AddSwaggerGen(c =>
