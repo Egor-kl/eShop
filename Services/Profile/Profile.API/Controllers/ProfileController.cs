@@ -103,5 +103,81 @@ namespace Profile.API.Controllers
 
             return profiles;
         }
+
+        /// <summary>
+        /// Get profile by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [Authorize("User, Admin")]
+        public async Task<IActionResult> GetProfileById(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var profile = await _profileService.GetProfileByIdAsync(id);
+            
+            if (profile == null)
+            {
+                _logger.Warning($"{id} profile not found");
+                return NoContent();
+            }
+            
+            _logger.Information($"{id} get profile by id success");
+            return Ok(profile);
+        }
+
+        /// <summary>
+        /// Get profile by userId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("/GetByuserId")]
+        [Authorize("Admin")]
+        public async Task<IActionResult> GetProfileByUserId(int userId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var profile = await _profileService.GetProfileByUserIdAsync(userId);
+            if (profile is null)
+            {
+                _logger.Warning($"{userId} profile not found");
+                return NoContent();
+            }
+            
+            _logger.Information($"{userId} get profile by user id success");
+            return Ok(profile);
+        }
+
+        /// <summary>
+        /// Delete profile by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [Authorize("Admin")]
+        public async Task<IActionResult> DeleteProfileById([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var success = await _profileService.DeleteProfileByIdAsync(id);
+            if (!success)
+            {
+                _logger.Warning($"{id} profile not found");
+                return NotFound(id);
+            }
+
+            _logger.Information($"{id} delete profile success");
+            return Ok(id);
+        }
     }
 }
