@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Catalog.API.Common.Extensions;
 using Catalog.API.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace Catalog.API
         {
             services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
+            services.AddSerilogService();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
