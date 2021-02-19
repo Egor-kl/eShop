@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.Models
+﻿using System.Collections.Generic;
+
+namespace Catalog.API.Models
 {
     public class Category
     {
@@ -11,5 +13,7 @@
         /// Category name
         /// </summary>
         public string Name { get; set; }
+
+        public List<Item> Items { get; set; }
     }
 }

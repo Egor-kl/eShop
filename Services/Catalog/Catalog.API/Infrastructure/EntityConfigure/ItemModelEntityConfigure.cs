@@ -9,10 +9,6 @@ namespace Catalog.API.Infrastructure.EntityConfigure
         public void Configure(EntityTypeBuilder<Item> builder)
         {
             builder.HasKey(item => item.Id);
-
-            builder.HasOne(item => item.Category)
-                .WithMany()
-                .HasForeignKey(items => items.CategoryId);
             
             builder.Property(item => item.Name)
                 .HasMaxLength(255)
