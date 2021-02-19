@@ -30,6 +30,7 @@ namespace Catalog.API
         {
             services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Catalog.API", Version = "v1"});
