@@ -13,5 +13,7 @@ namespace Catalog.API.Models
         /// Category name
         /// </summary>
         public string Name { get; set; }
+
+        public List<Item> Items { get; set; }
     }
 }

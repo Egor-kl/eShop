@@ -27,6 +27,11 @@
         /// </summary>
         public string PictureFileName { get; set; }
 
+        /// <summary>
+        /// Numbers of items
+        /// </summary>
+        public int Amount { get; set; }
+
         public Category Category { get; set; }
     }
 }
