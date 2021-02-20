@@ -31,6 +31,7 @@ namespace Catalog.API
         {
             services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
+            services.AddScopedServices();
             services.AddSerilogService();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
