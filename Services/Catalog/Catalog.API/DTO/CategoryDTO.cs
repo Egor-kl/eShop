@@ -13,7 +13,5 @@ namespace Catalog.API.DTO
         /// Category name
         /// </summary>
         public string Name { get; set; }
-
-        public List<ItemDTO> Items { get; set; }
     }
 }

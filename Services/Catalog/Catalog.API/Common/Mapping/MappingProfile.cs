@@ -8,8 +8,8 @@ namespace Catalog.API.Common.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Item, ItemDTO>();
-            CreateMap<Category, CategoryDTO>();
+            CreateMap<Item, ItemDTO>().ReverseMap();
+            CreateMap<Category, CategoryDTO>().ReverseMap();
         }
     }
 }
