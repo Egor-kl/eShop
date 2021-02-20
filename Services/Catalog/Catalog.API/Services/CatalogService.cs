@@ -24,6 +24,7 @@ namespace Catalog.API.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <inheritdoc />
         public async Task<(int id, bool success)> AddNewCategory(CategoryDTO categoryDTO)
         {
             var category = _mapper.Map<CategoryDTO, Category>(categoryDTO);
@@ -37,6 +38,7 @@ namespace Catalog.API.Services
             return (id, true);
         }
 
+        /// <inheritdoc />
         public async Task<(int id, bool success)> AddNewItem(ItemDTO itemDTO)
         {
             var item = _mapper.Map<ItemDTO, Item>(itemDTO);
@@ -50,6 +52,7 @@ namespace Catalog.API.Services
             return (id, true);
         }
 
+        /// <inheritdoc />
         public async Task<bool> UpdateCategory(CategoryDTO categoryDTO)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryDTO.Id);
@@ -67,6 +70,7 @@ namespace Catalog.API.Services
             return true;
         }
 
+        /// <inheritdoc />
         public async Task<bool> UpdateItem(ItemDTO itemDTO)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == itemDTO.Id);
@@ -87,6 +91,7 @@ namespace Catalog.API.Services
             return true;
         }
 
+        /// <inheritdoc />
         public async Task<List<CategoryDTO>> GetAllCategories()
         {
             var categoryList = await _context.Categories.ToListAsync();
@@ -95,6 +100,7 @@ namespace Catalog.API.Services
             return exceptedList;
         }
 
+        /// <inheritdoc />
         public async Task<List<ItemDTO>> GetAllItems()
         {
             var itemList = await _context.Items.ToListAsync();
@@ -103,6 +109,7 @@ namespace Catalog.API.Services
             return exceptedList;
         }
 
+        /// <inheritdoc />
         public async Task<CategoryDTO> GetCategoryByName(string name)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
@@ -116,6 +123,7 @@ namespace Catalog.API.Services
             return categoryDTO;
         }
 
+        /// <inheritdoc />
         public async Task<ItemDTO> GetItemByName(string name)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Name == name);
@@ -129,6 +137,7 @@ namespace Catalog.API.Services
             return itemDTO;
         }
 
+        /// <inheritdoc />
         public async Task<CategoryDTO> GetCategoryById(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
@@ -142,6 +151,7 @@ namespace Catalog.API.Services
             return categoryDTO;
         }
 
+        /// <inheritdoc />
         public async Task<ItemDTO> GetItemById(int id)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
@@ -155,6 +165,7 @@ namespace Catalog.API.Services
             return itemDTO;
         }
 
+        /// <inheritdoc />
         public async Task<bool> DeleteItemById(int id)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
@@ -170,6 +181,7 @@ namespace Catalog.API.Services
             return true;
         }
 
+        /// <inheritdoc />
         public async Task<bool> DeleteItemByName(string name)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Name == name);
@@ -184,7 +196,8 @@ namespace Catalog.API.Services
 
             return true;
         }
-
+        
+        /// <inheritdoc />
         public async Task<bool> DeleteCategoryById(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
@@ -200,6 +213,7 @@ namespace Catalog.API.Services
             return true;
         }
 
+        /// <inheritdoc />
         public async Task<bool> DeleteCategoryByName(string name)
         {
             var category = await _context.Items.FirstOrDefaultAsync(c => c.Name == name);
