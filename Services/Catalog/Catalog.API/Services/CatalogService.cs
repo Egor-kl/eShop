@@ -84,6 +84,7 @@ namespace Catalog.API.Services
             item.Description = itemDTO.Description;
             item.Price = itemDTO.Price;
             item.PictureFileName = item.PictureFileName;
+            item.Amount = item.Amount;
 
             _context.Update(item);
             await _context.SaveChangesAsync(new CancellationToken());

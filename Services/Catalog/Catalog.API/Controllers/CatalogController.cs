@@ -16,7 +16,7 @@ namespace Catalog.API.Controllers
         private readonly ILogger _logger;
 
         /// <summary>
-        /// Constructor of profiles controller.
+        /// Constructor of catalog controller.
         /// </summary>
         /// <param name="catalogService">Service to manage catalog.</param>
         /// <param name="logger">Logging service.</param>
@@ -32,7 +32,7 @@ namespace Catalog.API.Controllers
         /// </summary>
         /// <param name="categoryDTO">Category dto</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("/category/add")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
@@ -49,7 +49,7 @@ namespace Catalog.API.Controllers
             
             categoryDTO.Id = id;
 
-            _logger.Information($"{categoryDTO.Id} add profile success");
+            _logger.Information($"{categoryDTO.Id} add categories success");
             return CreatedAtAction(nameof(AddNewCategory), categoryDTO);
         }
 
@@ -146,6 +146,129 @@ namespace Catalog.API.Controllers
             var success = await _catalogService.DeleteCategoryById(id);
             
             _logger.Information($"Delete category with id {id} success");
+
+            return Ok(id);
+        }
+        
+        /// <summary>
+        /// Add new item
+        /// </summary>
+        /// <param name="itemDTO">item dto</param>
+        /// <returns></returns>
+        [HttpPost("/item/add")]
+        public async Task<IActionResult> AddNewItem([FromBody] ItemDTO itemDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(itemDTO);
+            }
+
+            var (id, success) = await _catalogService.AddNewItem(itemDTO);
+            if (!success)
+            {
+                _logger.Warning($"{id} conflict with add new item");
+                return Conflict(new { Message = "Item already exist" });
+            }
+            
+            itemDTO.Id = id;
+
+            _logger.Information($"{itemDTO.Id} add item success");
+            return CreatedAtAction(nameof(AddNewCategory), itemDTO);
+        }
+
+        /// <summary>
+        /// Get all items
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/items")]
+        public async Task<ICollection<ItemDTO>> GetAllItems()
+        {
+            var items = await _catalogService.GetAllItems();
+            var count = items.Count;
+
+            _logger.Information($"{count} Get items");
+
+            return items;
+        }
+        
+        /// <summary>
+        /// Get item by id.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/item/{id}")]
+        public async Task<ItemDTO> GetItemById(int id)
+        {
+            var item = await _catalogService.GetItemById(id);
+
+            _logger.Information($"Get item with id {id}");
+
+            return item;
+        }
+        
+        /// <summary>
+        /// Get item by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet("/item/{name}")]
+        public async Task<ItemDTO> GetItemByName(string name)
+        {
+            var item = await _catalogService.GetItemByName(name);
+
+            _logger.Information($"Get item with name {name}");
+
+            return item;
+        }
+
+        /// <summary>
+        /// Update item
+        /// </summary>
+        /// <param name="itemDTO">item DTO</param>
+        /// <returns></returns>
+        [HttpPut("/item/{id}")]
+        public async Task<IActionResult> UpdateItem(ItemDTO itemDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(itemDTO);
+            }
+
+            var itemById = await _catalogService.GetItemById(itemDTO.Id);
+            if (itemById == null)
+            {
+                _logger.Warning($"{itemDTO.Id} item not found!");
+                return NotFound(itemDTO.Id);
+            }
+
+            var success = await _catalogService.UpdateItem(itemDTO);
+            if (!success)
+            {
+                _logger.Warning($"{itemDTO.Id} Conflict with update");
+                return Conflict(new {Message = "Conflict with update"});
+            }
+            
+            _logger.Information($"{itemDTO.Id} update item success");
+            return Ok(itemDTO);
+        }
+        
+        /// <summary>
+        /// Delete item by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("/item/{id}")]
+        public async Task<IActionResult> DeleteItemById(int id)
+        {
+            var itemById = await _catalogService.GetItemById(id);
+            if (itemById == null)
+            {
+                _logger.Warning($"{itemById.Id} item not found!");
+                return NotFound();
+            }
+
+            var success = await _catalogService.DeleteItemById(id);
+            
+            _logger.Information($"Delete item with id {id} success");
 
             return Ok(id);
         }
