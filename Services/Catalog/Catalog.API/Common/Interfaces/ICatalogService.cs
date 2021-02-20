@@ -4,19 +4,22 @@ using Catalog.API.DTO;
 
 namespace Catalog.API.Common.Interfaces
 {
+    /// <summary>
+    /// Interface for catalog service
+    /// </summary>
     public interface ICatalogService
     {
         /// <summary>
         /// Add new product category.
         /// </summary>
         /// <returns></returns>
-        public Task<(int id, bool success)> AddNewCategory();
+        public Task<(int id, bool success)> AddNewCategory(CategoryDTO categoryDTO);
         
         /// <summary>
         /// Add new item.
         /// </summary>
         /// <returns></returns>
-        public Task<(int id, bool success)> AddNewItem();
+        public Task<(int id, bool success)> AddNewItem(ItemDTO itemDTO);
 
         /// <summary>
         /// Update category.
