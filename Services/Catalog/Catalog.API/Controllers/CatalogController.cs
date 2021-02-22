@@ -103,7 +103,7 @@ namespace Catalog.API.Controllers
         /// <param name="categoryDTO">category DTO</param>
         /// <returns></returns>
         [HttpPut("/category/{id}")]
-        public async Task<IActionResult> UpdateCategory(CategoryDTO categoryDTO)
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -226,7 +226,7 @@ namespace Catalog.API.Controllers
         /// <param name="itemDTO">item DTO</param>
         /// <returns></returns>
         [HttpPut("/item/{id}")]
-        public async Task<IActionResult> UpdateItem(ItemDTO itemDTO)
+        public async Task<IActionResult> UpdateItem([FromBody] ItemDTO itemDTO)
         {
             if (!ModelState.IsValid)
             {
