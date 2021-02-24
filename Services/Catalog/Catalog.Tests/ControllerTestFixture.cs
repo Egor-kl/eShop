@@ -9,7 +9,7 @@ namespace Catalog.Tests
         /// Generate collection of Item DTO.
         /// </summary>
         /// <returns>Collection of Item DTO.</returns>
-        public List<ItemDTO> GetAllItems()
+        public List<ItemDTO> GetAllItemsDTO()
         {
             return new List<ItemDTO>()
             {
@@ -39,7 +39,7 @@ namespace Catalog.Tests
         /// Generate single Item DTO.
         /// </summary>
         /// <returns>Item DTO</returns>
-        public ItemDTO GetItem()
+        public ItemDTO GetItemDTO()
         {
             return new ItemDTO()
             {
@@ -49,6 +49,41 @@ namespace Catalog.Tests
                 Name = "Some name 3",
                 Price = 233.33M,
                 PictureFileName = "d:/some/some3.png"
+            };
+        }
+
+        /// <summary>
+        /// Generate single Category DTO.
+        /// </summary>
+        /// <returns>Category DTO</returns>
+        public CategoryDTO GetCategoryDTO()
+        {
+            return new CategoryDTO()
+            {
+                Id = 1,
+                Name = "Some name category"
+            };
+        }
+
+        /// <summary>
+        /// Generate collection of Category DTO.
+        /// </summary>
+        /// <returns>Collection of Category DTO.</returns>
+        public List<CategoryDTO> GetAllCategoriesDTO()
+        {
+            return new List<CategoryDTO>()
+            {
+                new CategoryDTO()
+                {
+                    Id = 2,
+                    Name = "Some name category 2"
+                },
+
+                new CategoryDTO()
+                {
+                    Id = 3,
+                    Name = "Some name category 3"
+                }
             };
         }
     }

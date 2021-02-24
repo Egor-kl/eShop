@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Catalog.API.Common.Interfaces;
 using Catalog.API.Controllers;
 using Catalog.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Serilog;
 using Xunit;
@@ -16,8 +17,9 @@ namespace Catalog.Tests
         {
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
-            catalogServiceMock.Setup(service => service.GetAllItems())
-                .Returns(Task.FromResult<List<ItemDTO>>(GetAllItems()));
+            catalogServiceMock.Setup(service => service
+                    .GetAllItems())
+                    .Returns(Task.FromResult(GetAllItemsDTO()));
             
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -32,12 +34,13 @@ namespace Catalog.Tests
         }
         
         [Fact]
-        public async void GetAllItem_WithValidModel_Returns_ItemDTO()
+        public async void GetItemById_WithValidModel_Returns_ItemDTO()
         {
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
-            catalogServiceMock.Setup(service => service.GetItemById(3))
-                .Returns(Task.FromResult<ItemDTO>(GetItem()));
+            catalogServiceMock.Setup(service => service
+                    .GetItemById(3))
+                    .Returns(Task.FromResult<ItemDTO>(GetItemDTO()));
             
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -49,6 +52,92 @@ namespace Catalog.Tests
 
             // Assert
             Assert.IsType<ItemDTO>(result);
+        }
+
+        [Fact]
+        public async void GetAllCategories_WithValidModel_Returns_CollectionOfCategoryDTO()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            catalogServiceMock.Setup(service => service.GetAllCategories())
+                .Returns(Task.FromResult<List<CategoryDTO>>(GetAllCategoriesDTO()));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+
+            // Act
+            var result = await controller.GetAllCategories();
+
+            // Assert
+            Assert.IsType<List<CategoryDTO>>(result);
+        }
+        
+        [Fact]
+        public async void GetCategoryById_WithValidModel_Returns_CategoryDTO()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            catalogServiceMock.Setup(service => service.GetCategoryById(1))
+                .Returns(Task.FromResult<CategoryDTO>(GetCategoryDTO()));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+
+            // Act
+            var result = await controller.GetCategoryById(1);
+
+            // Assert
+            Assert.IsType<CategoryDTO>(result);
+        }
+
+        [Fact]
+        public async void AddNewCategoryWithValidModel_Returns_CreatedAtActionResult()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            catalogServiceMock.Setup(service => service
+                    .AddNewCategory(It.IsAny<CategoryDTO>()))
+                    .Returns(Task.FromResult((1, true)));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+            var categoryDTO = new CategoryDTO();
+            
+            // Act
+            var result = await controller.AddNewCategory(categoryDTO);
+
+            // Assert
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.IsAssignableFrom<CategoryDTO>(createdAtActionResult.Value);
+        }
+        
+        [Fact]
+        public async void AddNewItemWithValidModel_Returns_CreatedAtActionResult()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            catalogServiceMock.Setup(service => service
+                    .AddNewItem(It.IsAny<ItemDTO>()))
+                    .Returns(Task.FromResult((1, true)));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+            var itemDTO = new ItemDTO();
+            
+            // Act
+            var result = await controller.AddNewItem(itemDTO);
+
+            // Assert
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.IsAssignableFrom<ItemDTO>(createdAtActionResult.Value);
         }
     }
 }
