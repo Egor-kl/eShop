@@ -139,5 +139,59 @@ namespace Catalog.Tests
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.IsAssignableFrom<ItemDTO>(createdAtActionResult.Value);
         }
+
+        [Fact]
+        public async void DeleteCategoryById_Returns_OkResult()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            
+            catalogServiceMock.Setup(service => service
+                    .GetCategoryById(It.IsAny<int>()))
+                    .Returns(Task.FromResult(GetCategoryDTO()));
+            
+            catalogServiceMock.Setup(service => service
+                    .DeleteCategoryById(It.IsAny<int>()))
+                    .Returns(Task.FromResult(true));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+            
+            //Act
+            var result = await controller.DeleteCategoryById(1);
+            
+            // Assert
+            var okObjectResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsAssignableFrom<int>(okObjectResult.Value);
+        }
+        
+        [Fact]
+        public async void DeleteItemById_Returns_OkResult()
+        {
+            // Arrange
+            var catalogServiceMock = new Mock<ICatalogService>();
+            
+            catalogServiceMock.Setup(service => service
+                    .GetItemById(It.IsAny<int>()))
+                    .Returns(Task.FromResult(GetItemDTO()));
+            
+            catalogServiceMock.Setup(service => service
+                    .DeleteItemById(It.IsAny<int>()))
+                    .Returns(Task.FromResult(true));
+            
+            var loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(c => c.Information(It.IsAny<string>()));
+
+            var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
+            
+            //Act
+            var result = await controller.DeleteItemById(3);
+            
+            // Assert
+            var okObjectResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsAssignableFrom<int>(okObjectResult.Value);
+        }
     }
 }
