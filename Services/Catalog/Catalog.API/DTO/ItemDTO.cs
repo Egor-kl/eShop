@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.DTO
+﻿using Catalog.API.Models;
+
+namespace Catalog.API.DTO
 {
     public class ItemDTO 
     {
@@ -32,6 +34,7 @@
         /// </summary>
         public int Amount { get; set; }
 
-        public CategoryDTO Category { get; set; }
+        
+        public int CategoryId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Catalog.API.Models;
 
 namespace Catalog.API.DTO
 {
@@ -13,5 +14,11 @@ namespace Catalog.API.DTO
         /// Category name
         /// </summary>
         public string Name { get; set; }
+        
+        public ICollection<ItemDTO> Items { get; set; }
+        public CategoryDTO()
+        {
+            Items = new List<ItemDTO>();
+        }
     }
 }

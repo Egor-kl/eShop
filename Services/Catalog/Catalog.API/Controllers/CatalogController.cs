@@ -72,7 +72,7 @@ namespace Catalog.API.Controllers
         /// Get category by id.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/category/{id}")]
+        [HttpGet("/category/getById/{id}")]
         public async Task<CategoryDTO> GetCategoryById(int id)
         {
             var category = await _catalogService.GetCategoryById(id);
@@ -87,7 +87,7 @@ namespace Catalog.API.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        [HttpGet("/category/{name}")]
+        [HttpGet("/category/getByName/{name}")]
         public async Task<CategoryDTO> GetCategoryByName(string name)
         {
             var category = await _catalogService.GetCategoryByName(name);
