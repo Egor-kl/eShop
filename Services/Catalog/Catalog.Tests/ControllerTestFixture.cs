@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Catalog.API.DTO;
 
 namespace Catalog.Tests
@@ -20,7 +21,8 @@ namespace Catalog.Tests
                     Description = "some text",
                     Name = "Some name",
                     Price = 133.33M,
-                    PictureFileName = "d:/some/some.png"
+                    PictureFileName = "d:/some/some.png",
+                    CategoryId = 1
                 },
                 
                 new ItemDTO()
@@ -30,7 +32,8 @@ namespace Catalog.Tests
                     Description = "some text 2",
                     Name = "Some name 2",
                     Price = 33.33M,
-                    PictureFileName = "d:/some/some2.png"
+                    PictureFileName = "d:/some/some2.png",
+                    CategoryId = 1
                 }
             };
         }
@@ -48,7 +51,8 @@ namespace Catalog.Tests
                 Description = "some text 3",
                 Name = "Some name 3",
                 Price = 233.33M,
-                PictureFileName = "d:/some/some3.png"
+                PictureFileName = "d:/some/some3.png",
+                CategoryId = 2
             };
         }
 
@@ -61,7 +65,8 @@ namespace Catalog.Tests
             return new CategoryDTO()
             {
                 Id = 1,
-                Name = "Some name category"
+                Name = "Some name category",
+                Items = Array.Empty<ItemDTO>()
             };
         }
 
@@ -76,13 +81,15 @@ namespace Catalog.Tests
                 new CategoryDTO()
                 {
                     Id = 2,
-                    Name = "Some name category 2"
+                    Name = "Some name category 2",
+                    Items = Array.Empty<ItemDTO>()
                 },
 
                 new CategoryDTO()
                 {
                     Id = 3,
-                    Name = "Some name category 3"
+                    Name = "Some name category 3",
+                    Items = Array.Empty<ItemDTO>()
                 }
             };
         }
