@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Catalog.API.Common.Interfaces;
@@ -8,7 +9,7 @@ using Moq;
 using Serilog;
 using Xunit;
 
-namespace Catalog.Tests
+namespace Catalog.Test
 {
     public class CatalogControllerTests : ControllerTestFixture
     {
