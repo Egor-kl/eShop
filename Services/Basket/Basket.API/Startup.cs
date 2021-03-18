@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Basket.API.Common.Extensions;
 using Basket.API.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,8 @@ namespace Basket.API
         {
             services.AddDbContext<BasketContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
             services.AddControllers();
+
+            services.AddSerilogService();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Basket.API", Version = "v1"});
