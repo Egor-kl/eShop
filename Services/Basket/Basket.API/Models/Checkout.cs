@@ -2,8 +2,13 @@
 
 namespace Basket.API.Models
 {
+    /// <summary>
+    /// For transfer
+    /// </summary>
     public class Checkout
     {
+        public int Id { get; set; }
+        
         public string City { get; set; }
 
         public string Street { get; set; }
@@ -21,8 +26,6 @@ namespace Basket.API.Models
         public DateTime CardExpiration { get; set; }
 
         public string CardSecurityNumber { get; set; }
-
-        public int CardTypeId { get; set; }
 
         public string Buyer { get; set; }
     }

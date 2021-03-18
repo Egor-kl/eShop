@@ -2,16 +2,34 @@
 {
     public class Item
     {
+        /// <summary>
+        /// Product item identifier
+        /// </summary>
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        /// <summary>
+        /// Product name
+        /// </summary>
+        public string Name { get; set; }
 
-        public string ProductName { get; set; }
+        /// <summary>
+        /// Product item price
+        /// </summary>
+        public decimal Price { get; set; }
 
-        public double ProductPrice { get; set; }
+        /// <summary>
+        /// Product description
+        /// </summary>
+        public string Description { get; set; }
 
-        public int Quantity { get; set; }
+        /// <summary>
+        /// Path to image for product
+        /// </summary>
+        public string PictureFileName { get; set; }
 
-        public string PictureUrl { get; set; }
+        /// <summary>
+        /// Numbers of items
+        /// </summary>
+        public int Amount { get; set; }
     }
 }

@@ -7,10 +7,5 @@ namespace Basket.API.Models
         public int Id { get; set; }
 
         public List<Item> Items { get; set; }
-
-        public Basket(int customerId)
-        {
-            Id = customerId;
-        }
     }
 }
