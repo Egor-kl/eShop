@@ -23,10 +23,18 @@ namespace Basket.API.Models
 
         public string CardHolderName { get; set; }
 
+        /// <summary>
+        /// Срок действия
+        /// </summary>
         public DateTime CardExpiration { get; set; }
 
+        /// <summary>
+        /// CVV
+        /// </summary>
         public string CardSecurityNumber { get; set; }
 
-        public string Buyer { get; set; }
+        
+        public int BasketId { get; set; }
+        public Basket Basket { get; set; }
     }
 }

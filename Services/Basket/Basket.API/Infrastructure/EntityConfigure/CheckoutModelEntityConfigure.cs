@@ -9,7 +9,9 @@ namespace Basket.API.Infrastructure.EntityConfigure
         public void Configure(EntityTypeBuilder<Checkout> builder)
         {
             builder.HasKey(checkout => checkout.Id);
-            builder.Property(checkout => checkout.Buyer).IsRequired();
+            builder.HasOne(checkout => checkout.Basket)
+                .WithOne(checkout => checkout.Checkout)
+                .HasForeignKey<Checkout>(checkout => checkout.BasketId);
             builder.Property(checkout => checkout.City).IsRequired();
             builder.Property(checkout => checkout.Country).IsRequired();
             builder.Property(checkout => checkout.State).IsRequired();

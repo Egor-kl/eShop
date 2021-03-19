@@ -8,8 +8,6 @@ namespace Basket.API.Common.Interfaces
 {
     public interface IBasketContext
     {
-        DbSet<Item> Items { get; set; }
-        
         DbSet<Checkout> Checkouts { get; set; }
         
         DbSet<Models.Basket> Baskets { get; set; }

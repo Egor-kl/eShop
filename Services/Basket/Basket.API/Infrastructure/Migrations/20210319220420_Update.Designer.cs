@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using Basket.API.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Basket.API.Infrastructure.Migrations
 {
     [DbContext(typeof(BasketContext))]
-    partial class BasketContextModelSnapshot : ModelSnapshot
+    [Migration("20210319220420_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
