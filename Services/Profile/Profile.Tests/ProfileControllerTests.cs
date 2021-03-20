@@ -18,7 +18,7 @@ namespace Profile.Tests
         {
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
-                    .RegisterNewProfileAsync(It.IsAny<ProfileDTO>()))
+                    .RegisterNewProfileAsync(It.IsAny<ProfileDTO>(), null))
                     .Returns(Task.FromResult((1, true)));
 
             var loggerMock = new Mock<ILogger>();
@@ -59,7 +59,7 @@ namespace Profile.Tests
             // Arrange
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
-                    .RegisterNewProfileAsync(It.IsAny<ProfileDTO>()))
+                    .RegisterNewProfileAsync(It.IsAny<ProfileDTO>(), null))
                     .Returns(Task.FromResult((1, false)));
 
             var loggerMock = new Mock<ILogger>();

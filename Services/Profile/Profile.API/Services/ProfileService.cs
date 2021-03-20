@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Profile.API.Common.Interfaces;
 using Profile.API.DTO;
@@ -30,11 +33,24 @@ namespace Profile.API.Services
         }
         
         /// <inheritdoc/>
-        public async Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO)
+        public async Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO, IFormFile? photo)
         {
             var profile = _mapper.Map<ProfileDTO, Models.Profile>(profileDTO);
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
+            if (profileDTO.Avatars != null)
+            {
+                byte[] avatar = null;
+                await using var reader = photo.OpenReadStream();
+                await using (var memoryStream = new MemoryStream())
+                {
+                    reader.CopyTo(memoryStream);
+                    avatar = memoryStream.ToArray();
+                }
+
+                profile.Avatars = avatar;
+            }
+            
             if (profileFound != null)
             {
                 _logger.Error("Profile alredy exist");
