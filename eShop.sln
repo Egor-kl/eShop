@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{FE5BE4
 ProjectSection(SolutionItems) = preProject
 	deploy\DockerfileIdentity = deploy\Identity.Dockerfile
 	deploy\Profile.Dockerfile = deploy\Profile.Dockerfile
+	deploy\Basket.Dockerfile = deploy\Basket.Dockerfile
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8ABAEA1F-6B99-42B9-9107-A8D7C73FD177}"
