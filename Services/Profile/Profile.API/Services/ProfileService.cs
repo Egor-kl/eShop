@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -35,9 +36,19 @@ namespace Profile.API.Services
             var profile = _mapper.Map<ProfileDTO, Models.Profile>(profileDTO);
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
+            if (profileDTO.Avatars != null)
+            {
+                byte[] imageData = null;
+                using (var binaryReader = new BinaryReader(profileDTO.Avatar.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int) profileDTO.Avatar.Length);
+                }
+                profile.Avatars = imageData;
+            }
+            
             if (profileFound != null)
             {
-                _logger.Error("Profile alredy exist");
+                _logger.Error("Profile already exist");
                 return (-1, false);
             }
 
