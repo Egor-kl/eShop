@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Profile.API.DTO
 {
@@ -30,7 +31,12 @@ namespace Profile.API.DTO
         public string Phone { get; set; }
 
         /// <summary>
-        /// User avatar.
+        /// For upload User avatar.
+        /// </summary>
+        public IFormFile Avatar { get; set; }
+
+        /// <summary>
+        /// User avatar
         /// </summary>
         public byte[] Avatars { get; set; }
         

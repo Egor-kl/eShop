@@ -13,7 +13,7 @@ namespace Profile.API.Common.Interfaces
         /// </summary>
         /// <param name="profileDTO">Profile model.</param>
         /// <returns>Profile Id and operation status.</returns>
-        Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO, IFormFile? photo);
+        Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO);
 
         /// <summary>
         /// Get profile by identifier.

@@ -43,7 +43,7 @@ namespace Profile.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var (id, success) = await _profileService.RegisterNewProfileAsync(profileDTO, null);
+            var (id, success) = await _profileService.RegisterNewProfileAsync(profileDTO);
             if (!success)
             {
                 _logger.Warning($"{id} conflict with register");
