@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 
 namespace Identity
 {
@@ -39,14 +40,22 @@ namespace Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseRouting();
-            
+
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity v1"));
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
+                DefaultFileNames = new List<string> { "/swagger/index.html" }
+            });
 
             app.UseEndpoints(
                 endpoints =>
