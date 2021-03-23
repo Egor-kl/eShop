@@ -16,6 +16,10 @@ ProjectSection(SolutionItems) = preProject
 	deploy\DockerfileIdentity = deploy\Identity.Dockerfile
 	deploy\Profile.Dockerfile = deploy\Profile.Dockerfile
 	deploy\Basket.Dockerfile = deploy\Basket.Dockerfile
+	deploy\Catalog.Dockerfile = deploy\Catalog.Dockerfile
+	deploy\docker-compose.yml = deploy\docker-compose.yml
+	deploy\ApiGateway.Dockerfile = deploy\ApiGateway.Dockerfile
+	deploy\.dockerignore = deploy\.dockerignore
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8ABAEA1F-6B99-42B9-9107-A8D7C73FD177}"
