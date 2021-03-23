@@ -1,7 +1,6 @@
 using ApiGateway.Common.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +29,9 @@ namespace ApiGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddJwtService(Configuration);
-            services.AddOcelot();
+            services.AddOcelot(Configuration);
+            services.AddOpenTracing();
+            services.AddJaegerService(Configuration, Environment);
 
             services.AddCors();
         }
