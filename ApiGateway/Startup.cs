@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace ApiGateway
 {
@@ -14,6 +15,18 @@ namespace ApiGateway
         public IConfiguration Configuration { get; }
 
         public IHostEnvironment Environment { get; }
+
+        public Startup(IHostEnvironment environment)
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("config.json", false, true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+            Environment = environment;
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddJwtService(Configuration);
@@ -30,11 +43,14 @@ namespace ApiGateway
             }
 
             app.UseRouting();
+            
+            app.UseCors(options => options.AllowAnyOrigin()
+                                                        .AllowAnyHeader()
+                                                        .AllowAnyMethod());
+            
+            app.UseAuthentication();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
-            });
+            app.UseOcelot().Wait();
         }
     }
 }
