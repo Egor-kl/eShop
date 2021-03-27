@@ -28,4 +28,8 @@
       <Folder Include="Infrastructure\Migrations" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\EventBus\EventBus.csproj" />
+    </ItemGroup>
+
 </Project>
