@@ -15,7 +15,8 @@ namespace Identity.Infrastructure.EntityConfigure
         /// <param name="builder">User model builder.</param>
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(user => user.Id);
+            builder.Property(user => user.Id)
+                .UseSerialColumn();
 
             builder.Property(user => user.Email)
                 .IsRequired()
@@ -29,7 +30,8 @@ namespace Identity.Infrastructure.EntityConfigure
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(user => user.Role).IsRequired();
+            builder.Property(user => user.Role)
+                .IsRequired();
         }
     }
 }

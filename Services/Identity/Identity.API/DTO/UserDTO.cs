@@ -7,6 +7,7 @@ namespace Identity.DTO
         /// <summary>
         /// Identifier.
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>

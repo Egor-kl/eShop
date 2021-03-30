@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Common.Interfaces;
@@ -36,7 +37,7 @@ namespace Profile.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize("Admin, User")]
-        public async Task<IActionResult> RegisterNewProfile([FromBody] ProfileDTO profileDTO)
+        public async Task<IActionResult> RegisterNewProfile([FromBody] IProfileDTO profileDTO)
         {
             if (!ModelState.IsValid)
             {

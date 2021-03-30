@@ -83,7 +83,7 @@ namespace Identity.Common.Extensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "iCare Identity API",
+                    Title = "Identity API",
                     Version = "v1",
                     Description = "The Identity Microservice HTTP API. This is a Data-Driven/CRUD microservice."
                 });

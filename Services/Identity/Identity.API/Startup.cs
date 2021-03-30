@@ -22,7 +22,7 @@ namespace Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
+            services.AddDbContext<IdentityContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DockerMSSQLConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             
@@ -40,22 +40,14 @@ namespace Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseAuthentication();
-            app.UseAuthorization();
-
+            
             app.UseRouting();
-
-            app.UseDefaultFiles();
-
-            app.UseStaticFiles();
-
+            
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity v1"));
 
-            app.UseDefaultFiles(new DefaultFilesOptions
-            {
-                DefaultFileNames = new List<string> { "/swagger/index.html" }
-            });
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(
                 endpoints =>

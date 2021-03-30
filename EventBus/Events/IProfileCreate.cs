@@ -1,17 +1,13 @@
 ﻿using EventBus.Common;
+using EventBus.DTO;
 
 namespace EventBus.Events
 {
     public interface IProfileCreate : IEvent
     {
         /// <summary>
-        /// User id. Identity
+        /// Profile DTO.
         /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Profile id
-        /// </summary>
-        public int ProfileId { get; set; }
+        public IProfileDTO ProfileDTO { get; set; }
     }
 }

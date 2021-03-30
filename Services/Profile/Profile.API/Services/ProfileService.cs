@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventBus.DTO;
 using Microsoft.EntityFrameworkCore;
 using Profile.API.Common.Interfaces;
 using Profile.API.DTO;
@@ -31,9 +32,9 @@ namespace Profile.API.Services
         }
         
         /// <inheritdoc/>
-        public async Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO)
+        public async Task<(int id, bool success)> RegisterNewProfileAsync(IProfileDTO profileDTO)
         {
-            var profile = _mapper.Map<ProfileDTO, Models.Profile>(profileDTO);
+            var profile = _mapper.Map<IProfileDTO, Models.Profile>(profileDTO);
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
             if (profileDTO.Avatars != null)
