@@ -62,11 +62,16 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-
-  sqldata:
-    image: "mcr.microsoft.com/mssql/server"
+      
+  pgadmin:
+    image: dpage/pgadmin4
     environment:
-        SA_PASSWORD: "reallyStrongPwd123"
-        ACCEPT_EULA: "Y"
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.com
+      - PGADMIN_DEFAULT_PASSWORD=strongPassword123
     ports:
-      - "1433:1433"
+      - "3030:80"
+    restart: unless-stopped
+    volumes:
+      - pgadmin:/root/.pgadmin
+volumes: 
+  pgadmin:

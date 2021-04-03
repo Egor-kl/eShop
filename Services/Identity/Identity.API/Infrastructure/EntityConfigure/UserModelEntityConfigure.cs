@@ -15,8 +15,7 @@ namespace Identity.Infrastructure.EntityConfigure
         /// <param name="builder">User model builder.</param>
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(user => user.Id)
-                .UseSerialColumn();
+            builder.HasKey(user => user.Id);
 
             builder.Property(user => user.Email)
                 .IsRequired()

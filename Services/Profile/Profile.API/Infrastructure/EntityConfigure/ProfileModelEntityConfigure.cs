@@ -13,8 +13,6 @@ namespace Profile.API.Infrastructure.EntityConfigure
         {
             builder.HasKey(user => user.Id);
 
-            builder.Property(user => user.Avatars);
-
             builder.Property(user => user.FirstName)
                 .HasMaxLength(255);
 
@@ -22,8 +20,6 @@ namespace Profile.API.Infrastructure.EntityConfigure
                 .HasMaxLength(255);
 
             builder.Property(user => user.Discount);
-
-            builder.Property(user => user.Purchases);
 
             builder.Property(user => user.BirthDate);
 

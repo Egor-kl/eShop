@@ -21,7 +21,6 @@ namespace Profile.Tests
                     LastName = "Something",
                     Phone = "3752901231210",
                     BirthDate = DateTime.Today,
-                    Avatars = null,
                     UserId = 123
                 },
 
@@ -32,7 +31,6 @@ namespace Profile.Tests
                    LastName = "Ivanov",
                    Phone = "375290000000",
                    BirthDate = DateTime.Today,
-                   Avatars = null,
                    UserId = 234
                }
             };
@@ -51,7 +49,6 @@ namespace Profile.Tests
                 LastName = "Patrick",
                 Phone = "375290000001",
                 BirthDate = DateTime.Today,
-                Avatars = null,
                 UserId = 111
             };
         }

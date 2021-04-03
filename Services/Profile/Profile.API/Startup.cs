@@ -31,7 +31,7 @@ namespace Profile.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProfileContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
+            services.AddDbContext<ProfileContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddSerilogService();
             services.AddScopedServices();

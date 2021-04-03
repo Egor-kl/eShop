@@ -37,16 +37,6 @@ namespace Profile.API.Services
             var profile = _mapper.Map<IProfileDTO, Models.Profile>(profileDTO);
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
-            if (profileDTO.Avatars != null)
-            {
-                byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(profileDTO.Avatar.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int) profileDTO.Avatar.Length);
-                }
-                profile.Avatars = imageData;
-            }
-            
             if (profileFound != null)
             {
                 _logger.Error("Profile already exist");
@@ -114,7 +104,6 @@ namespace Profile.API.Services
             profile.LastName = profileDTO.LastName;
             profile.BirthDate = profileDTO.BirthDate;
             profile.Phone = profileDTO.Phone;
-            profile.Avatars = profileDTO.Avatars;
 
             _context.Update(profile);
             await _context.SaveChangesAsync(new CancellationToken());

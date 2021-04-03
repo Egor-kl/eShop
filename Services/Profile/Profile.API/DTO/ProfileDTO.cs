@@ -29,16 +29,6 @@ namespace Profile.API.DTO
         /// User mobile phone.
         /// </summary>
         public string Phone { get; set; }
-
-        /// <summary>
-        /// For upload User avatar.
-        /// </summary>
-        public IFormFile Avatar { get; set; }
-
-        /// <summary>
-        /// User avatar
-        /// </summary>
-        public byte[] Avatars { get; set; }
         
         /// <summary>
         /// User id.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Profile.API.Models
 {
@@ -34,19 +35,9 @@ namespace Profile.API.Models
         public string Phone { get; set; }
 
         /// <summary>
-        /// User avatar.
-        /// </summary>
-        public byte[] Avatars { get; set; }
-
-        /// <summary>
         /// User discount.
         /// </summary>
         public double Discount { get; set; }
-        
-        /// <summary>
-        /// User purchases.
-        /// </summary>
-        public List<string> Purchases { get; set; }
 
         /// <summary>
         /// User id.

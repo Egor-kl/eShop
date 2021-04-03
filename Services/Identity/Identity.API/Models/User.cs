@@ -1,4 +1,6 @@
-﻿namespace Identity.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Identity.Models
 {
     /// <summary>
     /// User entity.
@@ -8,6 +10,7 @@
         /// <summary>
         /// Identifier.
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
