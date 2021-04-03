@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EventBus.Events;
+using EventBus.Commands;
 using MassTransit;
 using Profile.API.Common.Interfaces;
 
 namespace Profile.API.EventBus.Consumer
 {
-    public class RegisterProfileConsumer : IConsumer<IProfileCreate>
+    public class RegisterProfileConsumer : IConsumer<IRegisterProfile>
     {
         private readonly IProfileService _service;
 
@@ -16,9 +16,9 @@ namespace Profile.API.EventBus.Consumer
         }
 
 
-        public async Task Consume(ConsumeContext<IProfileCreate> context)
+        public async Task Consume(ConsumeContext<IRegisterProfile> context)
         {
-            var profileDTO = context.Message.ProfileDTO;
+            var profileDTO = context.Message.User;
             var success = await _service.RegisterNewProfileAsync(profileDTO);
         }
     }

@@ -37,7 +37,7 @@ namespace Profile.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize("Admin, User")]
-        public async Task<IActionResult> RegisterNewProfile([FromBody] IProfileDTO profileDTO)
+        public async Task<IActionResult> RegisterNewProfile([FromBody] IUserDTO profileDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -51,9 +51,9 @@ namespace Profile.API.Controllers
                 return Conflict(new { Message = "Profile already exist" });
             }
 
-            profileDTO.Id = id;
+            profileDTO.ProfileId = id;
 
-            _logger.Information($"{profileDTO.Id} add profile success");
+            _logger.Information($"{profileDTO.ProfileId} add profile success");
             return CreatedAtAction(nameof(RegisterNewProfile), profileDTO);
         }
 

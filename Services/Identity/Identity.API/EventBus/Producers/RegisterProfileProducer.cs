@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EventBus.Commands;
 using EventBus.Common;
-using EventBus.Events;
-using Identity.DTO;
+using EventBus.DTO;
 using MassTransit;
 
 namespace Identity.EventBus.Producers
 {
-    public class RegisterProfileProducer : IEventProducer<IProfileCreate, UserDTO>
+    public class RegisterProfileProducer : ICommandProducer<IRegisterProfile, IUserDTO>
     {
         private readonly IBusControl _busControl;
         
@@ -15,14 +15,14 @@ namespace Identity.EventBus.Producers
         {
             _busControl = busControl ?? throw new ArgumentNullException(nameof(busControl));
         }
-        /// <inheritdoc/>
-        public async Task<bool> Publish(UserDTO userDTO)
+
+        public async Task<bool> Send(IUserDTO data)
         {
-            await _busControl.Publish<IProfileCreate>(new
+            await _busControl.Send<IRegisterProfile>(new
             {
-                UserId = userDTO.Id,
-                Email = userDTO.Email,
-                UserName = userDTO.UserName
+                CommandId = Guid.NewGuid(),
+                ProfileDTO = data,
+                CreationDate = DateTime.Now,
             });
 
             return true;

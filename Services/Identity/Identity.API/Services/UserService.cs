@@ -12,6 +12,9 @@ using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
 using System.Security.Cryptography;
+using EventBus.Commands;
+using EventBus.Common;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -24,6 +27,7 @@ namespace Identity.Services
         private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
         private readonly Settings _settings;
+        private readonly IEventProducer<IRegisterProfile, IProfileDTO> _eventProducer;
 
         /// <summary>
         /// Constructor of service for managing user accounts.
@@ -32,10 +36,11 @@ namespace Identity.Services
         /// <param name="mapper">Mapping service.</param>
         /// <param name="settings">Application settings.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserService(IIdentityContext identityContext, IMapper mapper, IOptions<Settings> settings)
+        public UserService(IIdentityContext identityContext, IMapper mapper, IOptions<Settings> settings, IEventProducer<IRegisterProfile, IProfileDTO> eventProducer)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
             _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
@@ -97,6 +102,7 @@ namespace Identity.Services
             await _identityContext.SaveChangesAsync(new CancellationToken());
 
             var id = account.Id;
+
             return (id, true, "Registration success!");
         }
         

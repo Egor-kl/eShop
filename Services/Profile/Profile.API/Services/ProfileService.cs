@@ -32,10 +32,10 @@ namespace Profile.API.Services
         }
         
         /// <inheritdoc/>
-        public async Task<(int id, bool success)> RegisterNewProfileAsync(IProfileDTO profileDTO)
+        public async Task<(int id, bool success)> RegisterNewProfileAsync(IUserDTO profileDTO)
         {
-            var profile = _mapper.Map<IProfileDTO, Models.Profile>(profileDTO);
-            var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
+            var profile = _mapper.Map<IUserDTO, Models.Profile>(profileDTO);
+            var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.ProfileId);
 
             if (profileFound != null)
             {

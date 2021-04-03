@@ -13,6 +13,16 @@ namespace Profile.API.Models
         /// Profile identifier.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Username
+        /// </summary>
+        public string UserName { get; set; }
+        
+        /// <summary>
+        /// User email
+        /// </summary>
+        public string Email { get; set; }
         
         /// <summary>
         /// First name user.

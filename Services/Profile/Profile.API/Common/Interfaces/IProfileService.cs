@@ -12,9 +12,9 @@ namespace Profile.API.Common.Interfaces
         /// <summary>
         /// Register new profile.
         /// </summary>
-        /// <param name="profileDTO">Profile model.</param>
+        /// <param name="userDTO">User model.</param>
         /// <returns>Profile Id and operation status.</returns>
-        Task<(int id, bool success)> RegisterNewProfileAsync(IProfileDTO profileDTO);
+        Task<(int id, bool success)> RegisterNewProfileAsync(IUserDTO userDTO);
 
         /// <summary>
         /// Get profile by identifier.

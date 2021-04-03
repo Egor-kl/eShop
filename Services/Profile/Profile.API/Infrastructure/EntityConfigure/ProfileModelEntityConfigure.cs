@@ -26,6 +26,9 @@ namespace Profile.API.Infrastructure.EntityConfigure
             builder.Property(user => user.Phone)
                 .HasMaxLength(20);
 
+            builder.Property(user => user.Email);
+            builder.Property(user => user.UserName);
+
             builder.Property(user => user.UserId);
         }
     }
