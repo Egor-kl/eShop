@@ -8,7 +8,9 @@ namespace Basket.API.Infrastructure.EntityConfigure
         public void Configure(EntityTypeBuilder<Models.Basket> builder)
         {
             builder.HasKey(basket => basket.Id);
-            builder.Property(basket => basket.ProfileId);
+            builder.HasOne(basket => basket.Checkout)
+                .WithOne(basket => basket.Basket)
+                .HasForeignKey<Models.Basket>(basket => basket.CheckoutId);
         }
     }
 }
