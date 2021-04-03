@@ -9,5 +9,7 @@ namespace Basket.API.Models
         public int CheckoutId { get; set; }
         
         public Checkout Checkout { get; set; }
+
+        public int ProfileId { get; set; }
     }
 }
