@@ -29,7 +29,7 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BasketContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
+            services.AddDbContext<BasketContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
 
             services.AddSerilogService();

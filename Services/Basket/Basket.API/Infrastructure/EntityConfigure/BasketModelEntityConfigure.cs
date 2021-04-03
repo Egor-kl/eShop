@@ -8,7 +8,6 @@ namespace Basket.API.Infrastructure.EntityConfigure
         public void Configure(EntityTypeBuilder<Models.Basket> builder)
         {
             builder.HasKey(basket => basket.Id);
-            builder.Property(basket => basket.ItemsId);
             builder.Property(basket => basket.ProfileId);
         }
     }

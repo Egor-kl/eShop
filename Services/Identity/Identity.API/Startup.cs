@@ -22,7 +22,7 @@ namespace Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("DockerPostgresSQLConnection")));
+            services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             

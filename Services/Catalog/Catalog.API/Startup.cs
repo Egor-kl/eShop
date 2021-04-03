@@ -21,7 +21,7 @@ namespace Catalog.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnection")));
+            services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddScopedServices();
             services.AddSerilogService();

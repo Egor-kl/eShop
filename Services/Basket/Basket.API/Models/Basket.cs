@@ -6,8 +6,6 @@ namespace Basket.API.Models
     {
         public int Id { get; set; }
 
-        public List<int> ItemsId { get; set; }
-
         public Checkout Checkout { get; set; }
         
         public int ProfileId { get; set; }
