@@ -12,8 +12,8 @@ namespace EventBus.Common
         /// <summary>
         /// Sender event.
         /// </summary>
-        /// <param name="someData"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        Task<bool> Publish(T someData);
+        Task<bool> Publish(T data);
     }
 }

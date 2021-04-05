@@ -12,9 +12,8 @@ using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
 using System.Security.Cryptography;
-using EventBus.Commands;
 using EventBus.Common;
-using EventBus.DTO;
+using EventBus.Events;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -27,7 +26,7 @@ namespace Identity.Services
         private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
         private readonly Settings _settings;
-        private readonly IEventProducer<IRegisterProfile, IProfileDTO> _eventProducer;
+        private readonly IEventProducer<IProfileDeleted, int> _accountDeletedEventProducer;
 
         /// <summary>
         /// Constructor of service for managing user accounts.
@@ -35,12 +34,16 @@ namespace Identity.Services
         /// <param name="identityContext">Identity service.</param>
         /// <param name="mapper">Mapping service.</param>
         /// <param name="settings">Application settings.</param>
+        /// <param name="accountDeletedEventProducer">Event producer</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserService(IIdentityContext identityContext, IMapper mapper, IOptions<Settings> settings, IEventProducer<IRegisterProfile, IProfileDTO> eventProducer)
+        public UserService(IIdentityContext identityContext, 
+                            IMapper mapper, 
+                            IOptions<Settings> settings, 
+                            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
+            _accountDeletedEventProducer = accountDeletedEventProducer ?? throw new ArgumentNullException(nameof(accountDeletedEventProducer));
             _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
@@ -180,6 +183,8 @@ namespace Identity.Services
 
             _identityContext.Remove(user);
             await _identityContext.SaveChangesAsync(new CancellationToken());
+
+            await _accountDeletedEventProducer.Publish(userId);
 
             return true;
         }
