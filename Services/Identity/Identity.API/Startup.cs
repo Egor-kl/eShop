@@ -47,14 +47,14 @@ namespace Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseRouting();
             app.UseCors(options => options.AllowAnyOrigin()
-                                                        .AllowAnyHeader()
-                                                        .AllowAnyMethod());
-            
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity API version 1"));
 
             app.UseAuthentication();
             app.UseAuthorization();

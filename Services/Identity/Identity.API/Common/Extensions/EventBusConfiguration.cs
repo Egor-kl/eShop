@@ -32,7 +32,7 @@ namespace Identity.API.Common.Extensions
                 {
                     cfg.UseHealthCheck(context);
 
-                    var hostName = eventBusSettings.HostName;
+                    var hostName = eventBusSettings.DockerHostName;
                     cfg.Host(hostName, eventBusSettings.VirtualHostName, host =>
                     {
                         host.Username(eventBusSettings.UserName);

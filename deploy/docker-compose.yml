@@ -16,6 +16,8 @@ services:
       dockerfile: ./deploy/Catalog.Dockerfile
     ports:
       - "3001:80"
+    depends_on:
+      - event_bus
 
   profile:
     image: ${DOCKER_REGISTRY-}profile
@@ -24,6 +26,8 @@ services:
       dockerfile: ./deploy/Profile.Dockerfile
     ports:
       - "3002:80"
+    depends_on:
+      - event_bus
 
   basket:
     image: ${DOCKER_REGISTRY-}basket
@@ -32,6 +36,8 @@ services:
       dockerfile: ./deploy/Basket.Dockerfile
     ports:
       - "3003:80"
+    depends_on:
+      - event_bus
 
   identity:
     image: ${DOCKER_REGISTRY-}identity
@@ -40,6 +46,8 @@ services:
       dockerfile: ./deploy/Identity.Dockerfile
     ports:
       - "3004:80"
+    depends_on:
+      - event_bus
 
   jaeger:
     image: jaegertracing/all-in-one:latest
