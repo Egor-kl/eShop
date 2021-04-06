@@ -12,12 +12,12 @@ namespace Identity.EventBus.Consumers
     public class UserDeletedConsumer : IConsumer<IUserDeleted>
     {
         private readonly IUserService _userService;
-        private readonly Logger _logger;
+        private readonly ILogger<UserDeletedConsumer> _logger;
 
-        public UserDeletedConsumer(IUserService userService, Logger logger)
+        public UserDeletedConsumer(IUserService userService, ILogger<UserDeletedConsumer> logger)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -29,12 +29,14 @@ namespace Identity.EventBus.Consumers
         {
             try
             {
+                _logger.LogInformation("Start identity user deleted consumer");
                 var userId = context.Message.UserId;
                 var success = await _userService.DeleteUserByIdAsync(userId);
+                _logger.LogInformation($"{success}");
             }
             catch (Exception e)
             {
-                _logger.Error(e.Message);
+                _logger.LogError(e.Message);
             }
         }
     }
