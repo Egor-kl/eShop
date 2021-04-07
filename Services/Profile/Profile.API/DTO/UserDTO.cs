@@ -17,8 +17,19 @@ namespace Profile.API.DTO
         /// </summary>
         public int ProfileId { get; set; }
         
+        /// <summary>
+        /// Username
+        /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// User email
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Creation date
+        /// </summary>
+        public string CreationDate { get; set; }
     }
 }

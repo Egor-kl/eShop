@@ -26,10 +26,10 @@ namespace Profile.API.Infrastructure.EntityConfigure
             builder.Property(user => user.Phone)
                 .HasMaxLength(20);
 
-            builder.Property(user => user.Email);
-            builder.Property(user => user.UserName);
-
-            builder.Property(user => user.UserId);
+            builder.Property(user => user.Email).IsRequired();
+            builder.Property(user => user.UserName).IsRequired();
+            builder.Property(user => user.CreationDate).IsRequired();
+            builder.Property(user => user.UserId).IsRequired();
         }
     }
 }

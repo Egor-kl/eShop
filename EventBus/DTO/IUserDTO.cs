@@ -9,6 +9,7 @@
 
         public string Email { get; set; }
         public string UserName { get; set; }
+        public string CreationDate { get; set; }
 
         /// <summary>
         /// DTO for user Id

@@ -1,7 +1,4 @@
-﻿using System;
-using EventBus.Commands;
-using EventBus.Common;
-using EventBus.DTO;
+﻿using EventBus.Common;
 using EventBus.Events;
 using GreenPipes;
 using Identity.API.Common.Settings;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 
 namespace Profile.API.Models
 {
@@ -48,6 +49,11 @@ namespace Profile.API.Models
         /// User discount.
         /// </summary>
         public double Discount { get; set; }
+        
+        /// <summary>
+        /// Creation date.
+        /// </summary>
+        public string CreationDate { get; set; }
 
         /// <summary>
         /// User id.
