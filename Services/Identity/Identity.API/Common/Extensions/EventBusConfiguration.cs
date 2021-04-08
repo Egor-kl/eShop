@@ -1,4 +1,5 @@
 ﻿using EventBus.Common;
+using EventBus.DTO;
 using EventBus.Events;
 using GreenPipes;
 using Identity.API.Common.Settings;
@@ -55,7 +56,8 @@ namespace Identity.API.Common.Extensions
             services.AddSingleton<IBus>(provider => provider.GetRequiredService<IBusControl>());
 
             services.AddScoped(typeof(IEventProducer<IProfileDeleted, int>), typeof(ProfileDeletedProducer));
-
+            services.AddScoped(typeof(IEventProducer<IRegisterProfile, IUserDTO>), typeof(CreateProfileProducer));
+            
             return services;
         }
     }

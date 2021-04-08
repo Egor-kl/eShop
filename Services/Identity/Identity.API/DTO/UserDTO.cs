@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EventBus.DTO;
 
 namespace Identity.DTO
 {
-    public class UserDTO
-    {
+    public class UserDTO : IUserDTO
+    {   
         /// <summary>
         /// Identifier.
         /// </summary>
-        [Key]
         public int Id { get; set; }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace Profile.API.Common.Interfaces
         /// </summary>
         /// <param name="userDTO">User model.</param>
         /// <returns>Profile Id and operation status.</returns>
-        Task<(int id, bool success)> RegisterNewProfileAsync(IUserDTO userDTO);
+        Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO userDTO);
 
         /// <summary>
         /// Get profile by identifier.

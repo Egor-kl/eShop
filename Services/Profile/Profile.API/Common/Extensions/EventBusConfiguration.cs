@@ -25,6 +25,7 @@ namespace Profile.API.Common.Extensions
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<ProfileDeletedConsumer>();
+                x.AddConsumer<CreateProfileConsumer>();
 
                 x.AddBus(context => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
@@ -45,6 +46,7 @@ namespace Profile.API.Common.Extensions
                         ep.UseMessageRetry(r => r.Interval(2, 100));
 
                         ep.ConfigureConsumer<ProfileDeletedConsumer>(context);
+                        ep.ConfigureConsumer<CreateProfileConsumer>(context);
                     });
                 }));
             });

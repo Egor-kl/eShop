@@ -1,15 +1,19 @@
 ﻿using System;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Http;
 
 namespace Profile.API.DTO
 {
-    public class ProfileDTO
+    public class ProfileDTO : IUserDTO
     {
         /// <summary>
         /// User identifier.
         /// </summary>
         public int Id { get; set; }
-        
+
+        public string Email { get; set; }
+        public string UserName { get; set; }
+
         /// <summary>
         /// First name user.
         /// </summary>

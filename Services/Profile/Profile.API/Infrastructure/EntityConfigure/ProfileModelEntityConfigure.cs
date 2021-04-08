@@ -27,7 +27,7 @@ namespace Profile.API.Infrastructure.EntityConfigure
                 .HasMaxLength(20);
 
             builder.Property(user => user.Email).IsRequired();
-            builder.Property(user => user.UserName).IsRequired();
+            builder.Property(user => user.UserName).IsRequired().HasDefaultValue("");
             builder.Property(user => user.CreationDate).IsRequired();
             builder.Property(user => user.UserId).IsRequired();
         }

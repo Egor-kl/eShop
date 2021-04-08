@@ -34,7 +34,7 @@ namespace Profile.API.EventBus.Producers
                 await _bus.Publish<IUserDeleted>(new
                 {
                     CommandId = Guid.NewGuid(),
-                    UserId = userDTO.UserId,
+                    UserId = userDTO.Id,
                     CreationDate = DateTime.Now,
                 });
 

@@ -10,7 +10,7 @@ namespace Profile.API.Infrastructure.Migrations
                 name: "UserName",
                 table: "Profiles",
                 type: "text",
-                nullable: false,
+                nullable: true,
                 defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "text",
@@ -20,7 +20,7 @@ namespace Profile.API.Infrastructure.Migrations
                 name: "Email",
                 table: "Profiles",
                 type: "text",
-                nullable: false,
+                nullable: true,
                 defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "text",
@@ -30,7 +30,7 @@ namespace Profile.API.Infrastructure.Migrations
                 name: "CreationDate",
                 table: "Profiles",
                 type: "text",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
 

@@ -1,19 +1,24 @@
-﻿namespace EventBus.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EventBus.DTO
 {
     public interface IUserDTO
     {
         /// <summary>
-        /// DTO for profile Id
+        /// Identifier.
         /// </summary>
-        public int ProfileId { get; set; }
-
-        public string Email { get; set; }
-        public string UserName { get; set; }
-        public string CreationDate { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// DTO for user Id
+        /// User email.
         /// </summary>
-        public int UserId { get; set; }
+        [Required]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// User username.
+        /// </summary>
+        [Required]
+        public string UserName { get; set; }
     }
 }

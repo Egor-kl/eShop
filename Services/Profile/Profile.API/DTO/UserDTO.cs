@@ -7,6 +7,8 @@ namespace Profile.API.DTO
     /// </summary>
     public class UserDTO : IUserDTO
     {
+        public string Password { get; set; }
+
         /// <summary>
         /// User Id
         /// </summary>
@@ -21,6 +23,8 @@ namespace Profile.API.DTO
         /// Username
         /// </summary>
         public string UserName { get; set; }
+
+        public int Id { get; set; }
 
         /// <summary>
         /// User email

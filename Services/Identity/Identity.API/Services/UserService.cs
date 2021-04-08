@@ -13,6 +13,7 @@ using Identity.DTO;
 using Identity.Models;
 using System.Security.Cryptography;
 using EventBus.Common;
+using EventBus.DTO;
 using EventBus.Events;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace Identity.Services
         private readonly IMapper _mapper;
         private readonly Settings _settings;
         private readonly IEventProducer<IProfileDeleted, int> _accountDeletedEventProducer;
+        private readonly IEventProducer<IRegisterProfile, IUserDTO> _registerProfileEventProducer;
 
         /// <summary>
         /// Constructor of service for managing user accounts.
@@ -39,11 +41,12 @@ namespace Identity.Services
         public UserService(IIdentityContext identityContext, 
                             IMapper mapper, 
                             IOptions<Settings> settings, 
-                            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer)
+                            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer, IEventProducer<IRegisterProfile, IUserDTO> registerProfileEventProducer)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accountDeletedEventProducer = accountDeletedEventProducer ?? throw new ArgumentNullException(nameof(accountDeletedEventProducer));
+            _registerProfileEventProducer = registerProfileEventProducer ?? throw new ArgumentNullException(nameof(registerProfileEventProducer));
             _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
@@ -105,6 +108,8 @@ namespace Identity.Services
             await _identityContext.SaveChangesAsync(new CancellationToken());
 
             var id = account.Id;
+            
+            await _registerProfileEventProducer.Publish(userDTO);
 
             return (id, true, "Registration success!");
         }

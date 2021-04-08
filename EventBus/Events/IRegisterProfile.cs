@@ -10,7 +10,7 @@ namespace EventBus.Events
         /// <summary>
         /// User id
         /// </summary>
-        public int UserId { get; set; }
+        public int Id { get; set; }
         
         /// <summary>
         /// Username user
@@ -21,5 +21,10 @@ namespace EventBus.Events
         /// Date, when user register
         /// </summary>
         public string CreationDate { get; set; }
+
+        /// <summary>
+        /// User email
+        /// </summary>
+        public string Email { get; set; }
     }
 }
