@@ -1,4 +1,6 @@
-﻿namespace Identity.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Identity.Models
 {
     /// <summary>
     /// User entity.

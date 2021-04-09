@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventBus.Common;
+using EventBus.DTO;
+using EventBus.Events;
 using Microsoft.EntityFrameworkCore;
 using Profile.API.Common.Interfaces;
 using Profile.API.DTO;
@@ -16,6 +18,7 @@ namespace Profile.API.Services
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
         private readonly IProfileContext _context;
+        private readonly IEventProducer<IUserDeleted, IUserDTO> _eventProducer;
 
         /// <summary>
         /// Constructor of profile service.
@@ -23,11 +26,13 @@ namespace Profile.API.Services
         /// <param name="profileContext">Profile context.</param>
         /// <param name="mapper">Automapper.</param>
         /// <param name="logger">Logging service.</param>
-        public ProfileService(IMapper mapper, ILogger logger, IProfileContext profileContext)
+        /// <param name="eventProducer">Event producer</param>
+        public ProfileService(IMapper mapper, ILogger logger, IProfileContext profileContext, IEventProducer<IUserDeleted, IUserDTO> eventProducer)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _context = profileContext ?? throw new ArgumentNullException(nameof(profileContext));
+            _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
         }
         
         /// <inheritdoc/>
@@ -36,16 +41,6 @@ namespace Profile.API.Services
             var profile = _mapper.Map<ProfileDTO, Models.Profile>(profileDTO);
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
-            if (profileDTO.Avatars != null)
-            {
-                byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(profileDTO.Avatar.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int) profileDTO.Avatar.Length);
-                }
-                profile.Avatars = imageData;
-            }
-            
             if (profileFound != null)
             {
                 _logger.Error("Profile already exist");
@@ -113,7 +108,6 @@ namespace Profile.API.Services
             profile.LastName = profileDTO.LastName;
             profile.BirthDate = profileDTO.BirthDate;
             profile.Phone = profileDTO.Phone;
-            profile.Avatars = profileDTO.Avatars;
 
             _context.Update(profile);
             await _context.SaveChangesAsync(new CancellationToken());
@@ -133,6 +127,12 @@ namespace Profile.API.Services
 
             _context.Remove(profileFound);
             await _context.SaveChangesAsync(new CancellationToken());
+
+            await _eventProducer.Publish(new UserDTO
+            {
+                ProfileId = profileFound.Id,
+                UserId = profileFound.UserId
+            });
 
             return true;
         }

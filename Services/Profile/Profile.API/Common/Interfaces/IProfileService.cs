@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Http;
 using Profile.API.DTO;
 
@@ -11,9 +12,9 @@ namespace Profile.API.Common.Interfaces
         /// <summary>
         /// Register new profile.
         /// </summary>
-        /// <param name="profileDTO">Profile model.</param>
+        /// <param name="userDTO">User model.</param>
         /// <returns>Profile Id and operation status.</returns>
-        Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO);
+        Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO userDTO);
 
         /// <summary>
         /// Get profile by identifier.

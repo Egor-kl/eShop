@@ -29,7 +29,8 @@ namespace Identity.Infrastructure.EntityConfigure
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(user => user.Role).IsRequired();
+            builder.Property(user => user.Role)
+                .IsRequired();
         }
     }
 }

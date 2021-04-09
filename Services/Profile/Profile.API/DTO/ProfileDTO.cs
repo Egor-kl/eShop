@@ -1,15 +1,19 @@
 ﻿using System;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Http;
 
 namespace Profile.API.DTO
 {
-    public class ProfileDTO
+    public class ProfileDTO : IUserDTO
     {
         /// <summary>
         /// User identifier.
         /// </summary>
         public int Id { get; set; }
-        
+
+        public string Email { get; set; }
+        public string UserName { get; set; }
+
         /// <summary>
         /// First name user.
         /// </summary>
@@ -29,16 +33,6 @@ namespace Profile.API.DTO
         /// User mobile phone.
         /// </summary>
         public string Phone { get; set; }
-
-        /// <summary>
-        /// For upload User avatar.
-        /// </summary>
-        public IFormFile Avatar { get; set; }
-
-        /// <summary>
-        /// User avatar
-        /// </summary>
-        public byte[] Avatars { get; set; }
         
         /// <summary>
         /// User id.

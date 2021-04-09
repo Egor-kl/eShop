@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventBus.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Common.Interfaces;
@@ -10,7 +11,6 @@ using Serilog;
 namespace Profile.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class ProfileController : ControllerBase
     {
@@ -35,7 +35,6 @@ namespace Profile.API.Controllers
         /// <param name="profileDTO"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize("Admin, User")]
         public async Task<IActionResult> RegisterNewProfile([FromBody] ProfileDTO profileDTO)
         {
             if (!ModelState.IsValid)
@@ -61,7 +60,6 @@ namespace Profile.API.Controllers
         /// </summary>
         /// <param name="profileDTO"></param>
         /// <returns></returns>
-        [Authorize("Admin, User")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfile([FromBody] ProfileDTO profileDTO)
         {
@@ -93,7 +91,6 @@ namespace Profile.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize("Admin")]
         public async Task<ICollection<ProfileDTO>> GetProfiles()
         {
             var profiles = await _profileService.GetAllProfilesAsync();
@@ -161,7 +158,6 @@ namespace Profile.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        [Authorize("Admin")]
         public async Task<IActionResult> DeleteProfileById([FromRoute] int id)
         {
             if (!ModelState.IsValid)

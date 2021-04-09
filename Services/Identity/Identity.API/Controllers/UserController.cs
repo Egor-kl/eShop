@@ -71,7 +71,6 @@ namespace Identity.Controllers
             return Accepted(token);
         }
         
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ICollection<UserDTO>> GetAccounts()
         {
@@ -82,7 +81,6 @@ namespace Identity.Controllers
             return users;
         }
         
-        [Authorize(Roles = "Admin")]
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetAccountById([FromRoute] int id)
         {
@@ -102,7 +100,6 @@ namespace Identity.Controllers
             return Ok(user);
         }
         
-        [Authorize(Roles = "Admin")]
         [HttpGet("getByUsername/{username}")]
         public async Task<IActionResult> GetAccountByUserName([FromRoute] string username)
         {
@@ -122,7 +119,6 @@ namespace Identity.Controllers
             return Ok(user);
         }
         
-        [Authorize(Roles = "Admin")]
         [HttpDelete("deleteById/{id}")]
         public async Task<IActionResult> DeleteAccountById([FromRoute] int id)
         {
@@ -142,7 +138,6 @@ namespace Identity.Controllers
             return Ok(id);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("updateById/{id}")]
         public async Task<IActionResult> UpdateAccount([FromBody] UserDTO userDTO)
         {

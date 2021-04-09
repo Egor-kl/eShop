@@ -13,8 +13,6 @@ namespace Profile.API.Infrastructure.EntityConfigure
         {
             builder.HasKey(user => user.Id);
 
-            builder.Property(user => user.Avatars);
-
             builder.Property(user => user.FirstName)
                 .HasMaxLength(255);
 
@@ -23,14 +21,15 @@ namespace Profile.API.Infrastructure.EntityConfigure
 
             builder.Property(user => user.Discount);
 
-            builder.Property(user => user.Purchases);
-
             builder.Property(user => user.BirthDate);
 
             builder.Property(user => user.Phone)
                 .HasMaxLength(20);
 
-            builder.Property(user => user.UserId);
+            builder.Property(user => user.Email).IsRequired();
+            builder.Property(user => user.UserName).IsRequired().HasDefaultValue("");
+            builder.Property(user => user.CreationDate).IsRequired();
+            builder.Property(user => user.UserId).IsRequired();
         }
     }
 }

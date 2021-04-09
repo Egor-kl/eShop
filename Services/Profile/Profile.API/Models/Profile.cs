@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 
 namespace Profile.API.Models
 {
@@ -12,6 +14,16 @@ namespace Profile.API.Models
         /// Profile identifier.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Username
+        /// </summary>
+        public string UserName { get; set; }
+        
+        /// <summary>
+        /// User email
+        /// </summary>
+        public string Email { get; set; }
         
         /// <summary>
         /// First name user.
@@ -34,19 +46,14 @@ namespace Profile.API.Models
         public string Phone { get; set; }
 
         /// <summary>
-        /// User avatar.
-        /// </summary>
-        public byte[] Avatars { get; set; }
-
-        /// <summary>
         /// User discount.
         /// </summary>
         public double Discount { get; set; }
         
         /// <summary>
-        /// User purchases.
+        /// Creation date.
         /// </summary>
-        public List<string> Purchases { get; set; }
+        public string CreationDate { get; set; }
 
         /// <summary>
         /// User id.

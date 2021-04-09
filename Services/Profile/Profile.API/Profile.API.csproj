@@ -7,9 +7,11 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="10.1.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.0-develop.3289" />
-        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.2.0-develop.3289" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.0-develop.3289" />
+        <PackageReference Include="Jaeger" Version="0.4.3" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="6.3.2" />
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="6.3.2" />
+        <PackageReference Include="MassTransit.OpenTracing" Version="0.0.3" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="6.3.2" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
@@ -23,11 +25,16 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+        <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.6.2" />
         <PackageReference Include="Serilog" Version="2.10.1-dev-01265" />
         <PackageReference Include="Serilog.AspNetCore" Version="3.4.1-dev-00188" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.2.0-dev-00264" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00839" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\EventBus\EventBus.csproj" />
     </ItemGroup>
 
 </Project>
