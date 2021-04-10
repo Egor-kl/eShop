@@ -1,6 +1,5 @@
 ﻿using System;
 using EventBus.DTO;
-using Microsoft.AspNetCore.Http;
 
 namespace Profile.API.DTO
 {

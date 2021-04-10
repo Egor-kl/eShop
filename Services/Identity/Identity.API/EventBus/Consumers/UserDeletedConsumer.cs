@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EventBus.DTO;
 using EventBus.Events;
 using Identity.Common.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Serilog.Core;
 
 namespace Identity.EventBus.Consumers
 {

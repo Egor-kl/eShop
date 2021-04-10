@@ -4,7 +4,6 @@ using EventBus.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Profile.API.Common.Interfaces;
-using Serilog.Core;
 
 namespace Profile.API.EventBus.Consumer
 {

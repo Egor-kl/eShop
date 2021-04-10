@@ -3,7 +3,6 @@ using Identity.API.Common.Extensions;
 using Identity.Common.Extensions;
 using Identity.Infrastructure;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
