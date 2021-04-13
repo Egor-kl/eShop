@@ -32,6 +32,7 @@ namespace Email
             services.AddControllers();
             services.AddSingleton<MailSettings>(Configuration.GetSection("MailSettings").Get<MailSettings>());
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddSingleton<IRazorViewToString, RazorViewToString>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Email", Version = "v1"}); });
         }
 
