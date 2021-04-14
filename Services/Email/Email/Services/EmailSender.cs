@@ -31,7 +31,7 @@ namespace Email.Services
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync(_mailConfig.Server, _mailConfig.Port, false);
-                await client.AuthenticateAsync(_mailConfig.EmailAddress,_mailConfig.Password);
+                await client.AuthenticateAsync(_mailConfig.EmailAddress, _mailConfig.Password);
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
