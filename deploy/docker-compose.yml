@@ -57,7 +57,7 @@ services:
     ports:
       - "3005:80"
     depends_on:
-      - event-bus
+      - event_bus
 
   jaeger:
     image: jaegertracing/all-in-one:latest
