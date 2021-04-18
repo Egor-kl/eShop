@@ -20,6 +20,7 @@ namespace Email.EventBus.Consumer
         {
             try
             {
+                Console.WriteLine("start send email");
                 var email = new EmailDTO
                 {
                     Email = context.Message.Email,
