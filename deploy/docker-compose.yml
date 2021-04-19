@@ -49,6 +49,16 @@ services:
     depends_on:
       - event_bus
 
+  email:
+    image: ${DOCKER_REGISTRY-}email
+    build:
+      context: ../
+      dockerfile: ./deploy/Email.Dockerfile
+    ports:
+      - "3005:80"
+    depends_on:
+      - event-bus
+
   jaeger:
     image: jaegertracing/all-in-one:latest
     environment:

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Catalog.API.DTO;
 
-namespace Catalog.Test
+namespace Catalog.Tests
 {
     public class ControllerTestFixture
     {

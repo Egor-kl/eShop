@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EventBus.DTO
+﻿namespace EventBus.DTO
 {
     public interface IProfileDTO
     {

@@ -4,7 +4,6 @@ using EventBus.Common;
 using EventBus.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Identity.EventBus.Producers
 {

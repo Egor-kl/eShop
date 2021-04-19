@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Basket.API.Models
+﻿namespace Basket.API.Models
 {
     public class Basket
     {

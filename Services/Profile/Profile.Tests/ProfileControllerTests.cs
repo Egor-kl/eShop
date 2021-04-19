@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventBus.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Profile.API.Common.Interfaces;

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Identity.DTO;
+﻿using Identity.DTO;
 using Identity.Models;
 
 namespace Identity.Common.Mapping

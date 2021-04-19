@@ -1,6 +1,4 @@
-﻿using Catalog.API.Models;
-
-namespace Catalog.API.DTO
+﻿namespace Catalog.API.DTO
 {
     public class ItemDTO 
     {

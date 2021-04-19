@@ -5,7 +5,6 @@ using EventBus.DTO;
 using EventBus.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Profile.API.EventBus.Producers
 {

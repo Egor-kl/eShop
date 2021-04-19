@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EventBus.Events
+﻿namespace EventBus.Events
 {
     /// <summary>
     /// Profile register event

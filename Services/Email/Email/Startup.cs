@@ -1,14 +1,21 @@
-using Basket.API.Common.Extensions;
-using Basket.API.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Email.Common.Interfaces;
+using Email.Common.Settings;
+using Email.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace Basket.API
+namespace Email
 {
     public class Startup
     {
@@ -22,14 +29,11 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BasketContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
-
-            services.AddSerilogService();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Basket.API", Version = "v1"});
-            });
+            services.AddSingleton<MailSettings>(Configuration.GetSection("MailSettings").Get<MailSettings>());
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddSingleton<IRazorViewToString, RazorViewToString>();
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Email", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +43,7 @@ namespace Basket.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Email v1"));
             }
 
             app.UseHttpsRedirection();
