@@ -7,14 +7,14 @@ namespace Profile.Tests
     public class ControllerTestFixture
     {
         /// <summary>
-        /// Generate collection of User DTO.
+        ///     Generate collection of User DTO.
         /// </summary>
         /// <returns>Collection of User DTO.</returns>
         public ICollection<ProfileDTO> GetAllProfiles()
         {
-            return new List<ProfileDTO>()
+            return new List<ProfileDTO>
             {
-               new ProfileDTO()
+                new()
                 {
                     Id = 123,
                     FirstName = "Some",
@@ -24,25 +24,25 @@ namespace Profile.Tests
                     UserId = 123
                 },
 
-               new ProfileDTO()
-               {
-                   Id = 234,
-                   FirstName = "Ivan",
-                   LastName = "Ivanov",
-                   Phone = "375290000000",
-                   BirthDate = DateTime.Today,
-                   UserId = 234
-               }
+                new()
+                {
+                    Id = 234,
+                    FirstName = "Ivan",
+                    LastName = "Ivanov",
+                    Phone = "375290000000",
+                    BirthDate = DateTime.Today,
+                    UserId = 234
+                }
             };
         }
 
         /// <summary>
-        /// Generate single User DTO.
+        ///     Generate single User DTO.
         /// </summary>
         /// <returns>User DTO.</returns>
         public ProfileDTO GetProfile()
         {
-            return new ProfileDTO()
+            return new()
             {
                 Id = 111,
                 FirstName = "Petr",

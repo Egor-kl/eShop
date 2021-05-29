@@ -15,7 +15,7 @@ namespace Identity.Common.Extensions
     public static class DependencyInjectionIdentity
     {
         /// <summary>
-        /// Add scoped services.
+        ///     Add scoped services.
         /// </summary>
         /// <param name="services">DI container.</param>
         /// <returns>Services.</returns>
@@ -28,7 +28,7 @@ namespace Identity.Common.Extensions
         }
 
         /// <summary>
-        /// Add Serilog Service.
+        ///     Add Serilog Service.
         /// </summary>
         /// <param name="services">DI container.</param>
         public static IServiceCollection AddSerilogService(this IServiceCollection services)
@@ -42,7 +42,7 @@ namespace Identity.Common.Extensions
         }
 
         /// <summary>
-        /// Add JWT-based authentication.
+        ///     Add JWT-based authentication.
         /// </summary>
         /// <param name="services">DI container.</param>
         /// <param name="configuration">Application configuration.</param>
@@ -55,26 +55,26 @@ namespace Identity.Common.Extensions
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(opt =>
-            {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(opt =>
-            {
-                opt.RequireHttpsMetadata = true;
-                opt.SaveToken = true;
-                opt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(opt =>
+                {
+                    opt.RequireHttpsMetadata = true;
+                    opt.SaveToken = true;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         /// <summary>
-        /// Add Swagger Service.
+        ///     Add Swagger Service.
         /// </summary>
         /// <param name="services">DI container.</param>
         public static void AddSwaggerService(this IServiceCollection services)

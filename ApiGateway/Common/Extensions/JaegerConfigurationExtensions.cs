@@ -12,21 +12,23 @@ namespace ApiGateway.Common.Extensions
     public static class JaegerConfigurationExtensions
     {
         /// <summary>
-        /// Add Jaeger service.
+        ///     Add Jaeger service.
         /// </summary>
         /// <param name="services">DI container.</param>
         /// <param name="configuration">Application configuration.</param>
         /// <param name="environment">Application environment.</param>
         /// <returns>Services with configured Jaeger.</returns>
-        public static IServiceCollection AddJaegerService(this IServiceCollection services, 
-                                                            IConfiguration configuration, 
-                                                            IHostEnvironment environment)
+        public static IServiceCollection AddJaegerService(this IServiceCollection services,
+            IConfiguration configuration,
+            IHostEnvironment environment)
         {
             var jaegerSettingsSection = configuration.GetSection("JaegerSettings");
             services.Configure<JaegerSettings>(jaegerSettingsSection);
             var jaegerSettings = jaegerSettingsSection.Get<JaegerSettings>();
 
-            var agentHost = environment.IsProduction() ? jaegerSettings.DockerAgentHost : jaegerSettings.DefaultAgentHost;
+            var agentHost = environment.IsProduction()
+                ? jaegerSettings.DockerAgentHost
+                : jaegerSettings.DefaultAgentHost;
 
             services.AddSingleton(serviceProvider =>
             {
@@ -39,10 +41,7 @@ namespace ApiGateway.Common.Extensions
                 var config = Configuration.FromEnv(loggerFactory);
                 var tracer = config.GetTracer();
 
-                if (!GlobalTracer.IsRegistered())
-                {
-                    GlobalTracer.Register(tracer);
-                }
+                if (!GlobalTracer.IsRegistered()) GlobalTracer.Register(tracer);
                 return tracer;
             });
             return services;

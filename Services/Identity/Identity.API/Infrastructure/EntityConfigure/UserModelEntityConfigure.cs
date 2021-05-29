@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Identity.Infrastructure.EntityConfigure
 {
     /// <summary>
-    /// Class for user model configuration.
+    ///     Class for user model configuration.
     /// </summary>
     public class UserModelEntityConfigure : IEntityTypeConfiguration<User>
     {
         /// <summary>
-        /// Configure user model entity.
+        ///     Configure user model entity.
         /// </summary>
         /// <param name="builder">User model builder.</param>
         public void Configure(EntityTypeBuilder<User> builder)

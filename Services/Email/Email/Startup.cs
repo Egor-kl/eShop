@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Email.Common.Interfaces;
 using Email.Common.Settings;
 using Email.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Email
@@ -30,7 +23,7 @@ namespace Email
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<MailSettings>(Configuration.GetSection("MailSettings").Get<MailSettings>());
+            services.AddSingleton(Configuration.GetSection("MailSettings").Get<MailSettings>());
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddSingleton<IRazorViewToString, RazorViewToString>();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Email", Version = "v1"}); });

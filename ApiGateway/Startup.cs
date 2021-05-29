@@ -11,10 +11,6 @@ namespace ApiGateway
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
-        public IHostEnvironment Environment { get; }
-
         public Startup(IHostEnvironment environment)
         {
             var builder = new ConfigurationBuilder()
@@ -25,7 +21,11 @@ namespace ApiGateway
             Configuration = builder.Build();
             Environment = environment;
         }
-        
+
+        public IConfiguration Configuration { get; }
+
+        public IHostEnvironment Environment { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddJwtService(Configuration);
@@ -38,17 +38,14 @@ namespace ApiGateway
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
-            
+
             app.UseCors(options => options.AllowAnyOrigin()
-                                                        .AllowAnyHeader()
-                                                        .AllowAnyMethod());
-            
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
             app.UseAuthentication();
 
             app.UseOcelot().Wait();

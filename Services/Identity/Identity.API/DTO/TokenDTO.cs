@@ -3,22 +3,22 @@
     public class TokenDTO
     {
         /// <summary>
-        /// Account Identifier.
+        ///     Account Identifier.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// User name.
+        ///     User name.
         /// </summary>
         public string Username { get; set; }
 
         /// <summary>
-        /// User role.
+        ///     User role.
         /// </summary>
         public string Role { get; set; }
 
         /// <summary>
-        /// Authentication token.
+        ///     Authentication token.
         /// </summary>
         public string Token { get; set; }
     }

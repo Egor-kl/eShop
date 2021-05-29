@@ -6,7 +6,7 @@ namespace Profile.API.Infrastructure.EntityConfigure
     public class ProfileModelEntityConfigure : IEntityTypeConfiguration<Models.Profile>
     {
         /// <summary>
-        /// Configure user model entity.
+        ///     Configure user model entity.
         /// </summary>
         /// <param name="builder">User model builder.</param>
         public void Configure(EntityTypeBuilder<Models.Profile> builder)

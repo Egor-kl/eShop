@@ -33,7 +33,7 @@ namespace Profile.Tests
         //    var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
         //    Assert.IsAssignableFrom<ProfileDTO>(createdAtActionResult.Value);
         //}
-        
+
         //[Fact]
         //public async void RegisterNewProfile_WithInvalidModel_Returns_BadRequestResult()
         //{
@@ -51,7 +51,7 @@ namespace Profile.Tests
         //    // Assert
         //    Assert.IsType<BadRequestObjectResult>(result);
         //}
-        
+
         //[Fact]
         //public async void RegisterNewProfile_WithValidExistingModel_Returns_ConflictResult()
         //{
@@ -72,7 +72,7 @@ namespace Profile.Tests
         //    // Assert
         //    Assert.IsType<ConflictObjectResult>(result);
         //}
-        
+
         [Fact]
         public async void UpdateProfile_WithInvalidModel_Returns_BadRequestResult()
         {
@@ -98,11 +98,11 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
 
             profileServiceMock.Setup(service => service
-                .GetProfileByIdAsync(It.IsAny<int>()))
+                    .GetProfileByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetProfile()));
 
             profileServiceMock.Setup(service => service
-                .UpdateProfileAsync(It.IsAny<ProfileDTO>()))
+                    .UpdateProfileAsync(It.IsAny<ProfileDTO>()))
                 .Returns(Task.FromResult(false));
 
             var loggerMock = new Mock<ILogger>();
@@ -125,11 +125,11 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
 
             profileServiceMock.Setup(service => service
-                .GetProfileByIdAsync(It.IsAny<int>()))
+                    .GetProfileByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetProfile()));
 
             profileServiceMock.Setup(service => service
-                .UpdateProfileAsync(It.IsAny<ProfileDTO>()))
+                    .UpdateProfileAsync(It.IsAny<ProfileDTO>()))
                 .Returns(Task.FromResult(true));
 
             var loggerMock = new Mock<ILogger>();
@@ -153,7 +153,7 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
                     .GetAllProfilesAsync())
-                    .Returns(Task.FromResult(GetAllProfiles()));
+                .Returns(Task.FromResult(GetAllProfiles()));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -174,7 +174,7 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
                     .GetProfileByIdAsync(It.IsAny<int>()))
-                    .Returns(Task.FromResult(GetProfile()));
+                .Returns(Task.FromResult(GetProfile()));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -189,7 +189,7 @@ namespace Profile.Tests
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<ProfileDTO>(okObjectResult.Value);
         }
-        
+
         [Fact]
         public async void GetProfile_WithInvalidModel_Returns_BadRequestResult()
         {
@@ -197,7 +197,7 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
                     .GetProfileByIdAsync(It.IsAny<int>()))
-                    .Returns(Task.FromResult(GetProfile()));
+                .Returns(Task.FromResult(GetProfile()));
 
             var loggerMock = new Mock<ILogger>();
 
@@ -212,7 +212,7 @@ namespace Profile.Tests
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
         }
-        
+
         [Fact]
         public async void DeleteProfile_WithInvalidModelId_Returns_NotFoundResult()
         {
@@ -220,7 +220,7 @@ namespace Profile.Tests
             var profileServiceMock = new Mock<IProfileService>();
             profileServiceMock.Setup(service => service
                     .DeleteProfileByIdAsync(It.IsAny<int>()))
-                    .Returns(Task.FromResult(false));
+                .Returns(Task.FromResult(false));
 
 
             var loggerMock = new Mock<ILogger>();
@@ -246,11 +246,11 @@ namespace Profile.Tests
 
             profileServiceMock.Setup(service => service
                     .GetProfileByIdAsync(It.IsAny<int>()))
-                    .Returns(Task.FromResult(GetProfile()));
+                .Returns(Task.FromResult(GetProfile()));
 
             profileServiceMock.Setup(service => service
                     .DeleteProfileByIdAsync(It.IsAny<int>()))
-                    .Returns(Task.FromResult(true));
+                .Returns(Task.FromResult(true));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));

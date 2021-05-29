@@ -3,12 +3,12 @@
 namespace Profile.API.Common.Interfaces
 {
     /// <summary>
-    /// Interface for serilog service.
+    ///     Interface for serilog service.
     /// </summary>
     public interface ILogerService
     {
         /// <summary>
-        /// Serilog configuration.
+        ///     Serilog configuration.
         /// </summary>
         /// <returns>Configuration.</returns>
         Logger SerilogConfiguration();

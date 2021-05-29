@@ -7,13 +7,13 @@ namespace Catalog.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Items_Categories_CategoryId",
-                table: "Items");
+                "FK_Items_Categories_CategoryId",
+                "Items");
 
             migrationBuilder.AlterColumn<int>(
-                name: "CategoryId",
-                table: "Items",
-                type: "integer",
+                "CategoryId",
+                "Items",
+                "integer",
                 nullable: false,
                 defaultValue: 0,
                 oldClrType: typeof(int),
@@ -21,10 +21,10 @@ namespace Catalog.API.Infrastructure.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Items_Categories_CategoryId",
-                table: "Items",
-                column: "CategoryId",
-                principalTable: "Categories",
+                "FK_Items_Categories_CategoryId",
+                "Items",
+                "CategoryId",
+                "Categories",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -32,22 +32,22 @@ namespace Catalog.API.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Items_Categories_CategoryId",
-                table: "Items");
+                "FK_Items_Categories_CategoryId",
+                "Items");
 
             migrationBuilder.AlterColumn<int>(
-                name: "CategoryId",
-                table: "Items",
-                type: "integer",
+                "CategoryId",
+                "Items",
+                "integer",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "integer");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Items_Categories_CategoryId",
-                table: "Items",
-                column: "CategoryId",
-                principalTable: "Categories",
+                "FK_Items_Categories_CategoryId",
+                "Items",
+                "CategoryId",
+                "Categories",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }

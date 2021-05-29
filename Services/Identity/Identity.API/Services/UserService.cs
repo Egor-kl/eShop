@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using EventBus.Common;
+using EventBus.DTO;
+using EventBus.Events;
 using Identity.Common.Interfaces;
 using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
-using System.Security.Cryptography;
-using EventBus.Common;
-using EventBus.DTO;
-using EventBus.Events;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -24,42 +24,46 @@ namespace Identity.Services
 {
     public class UserService : IUserService
     {
+        private readonly IEventProducer<IProfileDeleted, int> _accountDeletedEventProducer;
         private readonly IIdentityContext _identityContext;
         private readonly IMapper _mapper;
-        private readonly Settings _settings;
-        private readonly IEventProducer<IProfileDeleted, int> _accountDeletedEventProducer;
         private readonly IEventProducer<IRegisterProfile, IUserDTO> _registerProfileEventProducer;
+        private readonly Settings _settings;
 
         /// <summary>
-        /// Constructor of service for managing user accounts.
+        ///     Constructor of service for managing user accounts.
         /// </summary>
         /// <param name="identityContext">Identity service.</param>
         /// <param name="mapper">Mapping service.</param>
         /// <param name="settings">Application settings.</param>
         /// <param name="accountDeletedEventProducer">Event producer</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserService(IIdentityContext identityContext, 
-                            IMapper mapper, 
-                            IOptions<Settings> settings, 
-                            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer, IEventProducer<IRegisterProfile, IUserDTO> registerProfileEventProducer)
+        public UserService(IIdentityContext identityContext,
+            IMapper mapper,
+            IOptions<Settings> settings,
+            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer,
+            IEventProducer<IRegisterProfile, IUserDTO> registerProfileEventProducer)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _accountDeletedEventProducer = accountDeletedEventProducer ?? throw new ArgumentNullException(nameof(accountDeletedEventProducer));
-            _registerProfileEventProducer = registerProfileEventProducer ?? throw new ArgumentNullException(nameof(registerProfileEventProducer));
+            _accountDeletedEventProducer = accountDeletedEventProducer ??
+                                           throw new ArgumentNullException(nameof(accountDeletedEventProducer));
+            _registerProfileEventProducer = registerProfileEventProducer ??
+                                            throw new ArgumentNullException(nameof(registerProfileEventProducer));
             _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<TokenDTO> LoginAsync([FromBody] LoginDTO loginDTO)
         {
             if (loginDTO == null)
                 return null;
 
             loginDTO.Password = PasswordToSHA256Hash(loginDTO.Password);
-            
-            var user = await _identityContext.Users.SingleOrDefaultAsync(x=> x.Email == loginDTO.Email && x.Password == loginDTO.Password);
-           
+
+            var user = await _identityContext.Users.SingleOrDefaultAsync(x =>
+                x.Email == loginDTO.Email && x.Password == loginDTO.Password);
+
             if (user == null)
                 return null;
 
@@ -74,7 +78,8 @@ namespace Identity.Services
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(31),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwtSecurityToken = tokenHandler.WriteToken(token);
@@ -89,18 +94,17 @@ namespace Identity.Services
 
             return userToken;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<(int id, bool result, string message)> RegisterAsync(UserDTO userDTO)
         {
             userDTO.Password = PasswordToSHA256Hash(userDTO.Password);
-            
-            var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Email == userDTO.Email || a.UserName == userDTO.UserName 
-                                                                         || a.Email == userDTO.Email && a.UserName == userDTO.UserName);
-            if (user != null)
-            {
-                return (0, false, "User already exist" );
-            }
+
+            var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Email == userDTO.Email ||
+                                                                             a.UserName == userDTO.UserName
+                                                                             || a.Email == userDTO.Email &&
+                                                                             a.UserName == userDTO.UserName);
+            if (user != null) return (0, false, "User already exist");
 
             var account = _mapper.Map<UserDTO, User>(userDTO);
 
@@ -108,13 +112,13 @@ namespace Identity.Services
             await _identityContext.SaveChangesAsync(new CancellationToken());
 
             var id = account.Id;
-            
+
             await _registerProfileEventProducer.Publish(userDTO);
 
             return (id, true, "Registration success!");
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<UserDTO> GetUserByEmailAsync(string email)
         {
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Email == email);
@@ -122,8 +126,8 @@ namespace Identity.Services
 
             return userDTO;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Id == userId);
@@ -131,8 +135,8 @@ namespace Identity.Services
 
             return userDTO;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<UserDTO> GetUserByUsernameAsync(string username)
         {
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.UserName == username);
@@ -140,8 +144,8 @@ namespace Identity.Services
 
             return userDTO;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<ICollection<UserDTO>> GetAllUsersAsync()
         {
             var userCollection = await _identityContext.Users.Select(a => a).ToListAsync();
@@ -155,16 +159,13 @@ namespace Identity.Services
 
             return collectionOfuserDTO;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<bool> UpdateUserAsync(UserDTO userDTO)
         {
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Id == userDTO.Id);
 
-            if (user == null)
-            {
-                return false;
-            }
+            if (user == null) return false;
 
             user.UserName = userDTO.UserName;
             user.Role = userDTO.Role;
@@ -176,15 +177,12 @@ namespace Identity.Services
 
             return true;
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<bool> DeleteUserByIdAsync(int userId)
         {
             var user = await _identityContext.Users.FirstOrDefaultAsync(a => a.Id == userId);
-            if (user == null)
-            {
-                return false;
-            }
+            if (user == null) return false;
 
             _identityContext.Remove(user);
             await _identityContext.SaveChangesAsync(new CancellationToken());
@@ -193,9 +191,9 @@ namespace Identity.Services
 
             return true;
         }
-        
+
         /// <summary>
-        /// Password hashing
+        ///     Password hashing
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
@@ -205,10 +203,7 @@ namespace Identity.Services
             var inputBytes = Encoding.ASCII.GetBytes(password);
             var hash = sha256.ComputeHash(inputBytes);
             var sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-            {
-                sb.Append(hash[i].ToString("X2"));
-            }
+            for (var i = 0; i < hash.Length; i++) sb.Append(hash[i].ToString("X2"));
             return sb.ToString();
         }
     }

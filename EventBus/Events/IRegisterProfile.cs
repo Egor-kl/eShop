@@ -1,27 +1,27 @@
 ﻿namespace EventBus.Events
 {
     /// <summary>
-    /// Profile register event
+    ///     Profile register event
     /// </summary>
     public interface IRegisterProfile
     {
         /// <summary>
-        /// User id
+        ///     User id
         /// </summary>
         public int Id { get; set; }
-        
+
         /// <summary>
-        /// Username user
+        ///     Username user
         /// </summary>
         public string UserName { get; set; }
-        
+
         /// <summary>
-        /// Date, when user register
+        ///     Date, when user register
         /// </summary>
         public string CreationDate { get; set; }
 
         /// <summary>
-        /// User email
+        ///     User email
         /// </summary>
         public string Email { get; set; }
     }

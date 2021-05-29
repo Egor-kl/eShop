@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Email.Common.Interfaces;
 using Email.Common.Settings;
+using MailKit.Net.Smtp;
 using MimeKit;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using MimeKit.Text;
 
 namespace Email.Services
 {
@@ -23,7 +24,7 @@ namespace Email.Services
             emailMessage.From.Add(new MailboxAddress("eShop ", _mailConfig.EmailAddress));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            emailMessage.Body = new TextPart(TextFormat.Html)
             {
                 Text = message
             };

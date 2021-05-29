@@ -10,7 +10,7 @@ namespace Profile.API.Common.Extensions
     public static class DependencyInjectionProfile
     {
         /// <summary>
-        /// Add scoped services.
+        ///     Add scoped services.
         /// </summary>
         /// <param name="services">DI container.</param>
         /// <returns>Services.</returns>
@@ -21,6 +21,7 @@ namespace Profile.API.Common.Extensions
 
             return services;
         }
+
         public static IServiceCollection AddSerilogService(this IServiceCollection services)
         {
             ILogerService serilogConfiguration = new SerilogService();

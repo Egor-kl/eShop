@@ -7,9 +7,9 @@ namespace Profile.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "UserName",
-                table: "Profiles",
-                type: "text",
+                "UserName",
+                "Profiles",
+                "text",
                 nullable: true,
                 defaultValue: "",
                 oldClrType: typeof(string),
@@ -17,9 +17,9 @@ namespace Profile.API.Infrastructure.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Email",
-                table: "Profiles",
-                type: "text",
+                "Email",
+                "Profiles",
+                "text",
                 nullable: true,
                 defaultValue: "",
                 oldClrType: typeof(string),
@@ -27,9 +27,9 @@ namespace Profile.API.Infrastructure.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "CreationDate",
-                table: "Profiles",
-                type: "text",
+                "CreationDate",
+                "Profiles",
+                "text",
                 nullable: true,
                 defaultValue: "");
         }
@@ -37,21 +37,21 @@ namespace Profile.API.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CreationDate",
-                table: "Profiles");
+                "CreationDate",
+                "Profiles");
 
             migrationBuilder.AlterColumn<string>(
-                name: "UserName",
-                table: "Profiles",
-                type: "text",
+                "UserName",
+                "Profiles",
+                "text",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "text");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Email",
-                table: "Profiles",
-                type: "text",
+                "Email",
+                "Profiles",
+                "text",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "text");

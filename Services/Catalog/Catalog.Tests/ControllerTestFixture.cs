@@ -7,14 +7,14 @@ namespace Catalog.Tests
     public class ControllerTestFixture
     {
         /// <summary>
-        /// Generate collection of Item DTO.
+        ///     Generate collection of Item DTO.
         /// </summary>
         /// <returns>Collection of Item DTO.</returns>
         public List<ItemDTO> GetAllItemsDTO()
         {
-            return new List<ItemDTO>()
+            return new()
             {
-                new ItemDTO()
+                new()
                 {
                     Id = 1,
                     Amount = 10,
@@ -24,8 +24,8 @@ namespace Catalog.Tests
                     PictureFileName = "d:/some/some.png",
                     CategoryId = 1
                 },
-                
-                new ItemDTO()
+
+                new()
                 {
                     Id = 2,
                     Amount = 20,
@@ -39,12 +39,12 @@ namespace Catalog.Tests
         }
 
         /// <summary>
-        /// Generate single Item DTO.
+        ///     Generate single Item DTO.
         /// </summary>
         /// <returns>Item DTO</returns>
         public ItemDTO GetItemDTO()
         {
-            return new ItemDTO()
+            return new()
             {
                 Id = 3,
                 Amount = 20,
@@ -57,12 +57,12 @@ namespace Catalog.Tests
         }
 
         /// <summary>
-        /// Generate single Category DTO.
+        ///     Generate single Category DTO.
         /// </summary>
         /// <returns>Category DTO</returns>
         public CategoryDTO GetCategoryDTO()
         {
-            return new CategoryDTO()
+            return new()
             {
                 Id = 1,
                 Name = "Some name category",
@@ -71,21 +71,21 @@ namespace Catalog.Tests
         }
 
         /// <summary>
-        /// Generate collection of Category DTO.
+        ///     Generate collection of Category DTO.
         /// </summary>
         /// <returns>Collection of Category DTO.</returns>
         public List<CategoryDTO> GetAllCategoriesDTO()
         {
-            return new List<CategoryDTO>()
+            return new()
             {
-                new CategoryDTO()
+                new()
                 {
                     Id = 2,
                     Name = "Some name category 2",
                     Items = Array.Empty<ItemDTO>()
                 },
 
-                new CategoryDTO()
+                new()
                 {
                     Id = 3,
                     Name = "Some name category 3",

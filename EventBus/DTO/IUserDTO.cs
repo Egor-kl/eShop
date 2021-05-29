@@ -5,18 +5,18 @@ namespace EventBus.DTO
     public interface IUserDTO
     {
         /// <summary>
-        /// Identifier.
+        ///     Identifier.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// User email.
+        ///     User email.
         /// </summary>
         [Required]
         public string Email { get; set; }
 
         /// <summary>
-        /// User username.
+        ///     User username.
         /// </summary>
         [Required]
         public string UserName { get; set; }

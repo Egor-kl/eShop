@@ -23,19 +23,20 @@ namespace Profile.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProfileContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
+            services.AddDbContext<ProfileContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddSerilogService();
             services.AddScopedServices();
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddEventBusService(Configuration, Environment);
 
             services.AddOpenTracing();
             services.AddJaegerService(Configuration, Environment);
 
             services.AddCors();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Profile.API", Version = "v1"});
@@ -44,10 +45,7 @@ namespace Profile.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
 

@@ -15,27 +15,28 @@ namespace Profile.API.Services
 {
     public class ProfileService : IProfileService
     {
-        private readonly IMapper _mapper;
-        private readonly ILogger _logger;
         private readonly IProfileContext _context;
         private readonly IEventProducer<IUserDeleted, IUserDTO> _eventProducer;
+        private readonly ILogger _logger;
+        private readonly IMapper _mapper;
 
         /// <summary>
-        /// Constructor of profile service.
+        ///     Constructor of profile service.
         /// </summary>
         /// <param name="profileContext">Profile context.</param>
         /// <param name="mapper">Automapper.</param>
         /// <param name="logger">Logging service.</param>
         /// <param name="eventProducer">Event producer</param>
-        public ProfileService(IMapper mapper, ILogger logger, IProfileContext profileContext, IEventProducer<IUserDeleted, IUserDTO> eventProducer)
+        public ProfileService(IMapper mapper, ILogger logger, IProfileContext profileContext,
+            IEventProducer<IUserDeleted, IUserDTO> eventProducer)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _context = profileContext ?? throw new ArgumentNullException(nameof(profileContext));
             _eventProducer = eventProducer ?? throw new ArgumentNullException(nameof(eventProducer));
         }
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public async Task<(int id, bool success)> RegisterNewProfileAsync(ProfileDTO profileDTO)
         {
             var profile = _mapper.Map<ProfileDTO, Models.Profile>(profileDTO);
@@ -55,37 +56,31 @@ namespace Profile.API.Services
             return (id, true);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<ProfileDTO> GetProfileByIdAsync(int id)
         {
             var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.Id == id);
-            
-            if(profile == null)
-            {
-                return null;
-            }
+
+            if (profile == null) return null;
 
             var profileDTO = _mapper.Map<Models.Profile, ProfileDTO>(profile);
 
             return profileDTO;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<ProfileDTO> GetProfileByUserIdAsync(int userId)
         {
             var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.UserId == userId);
-            
-            if(profile == null)
-            {
-                return null;
-            }
+
+            if (profile == null) return null;
 
             var profileDTO = _mapper.Map<Models.Profile, ProfileDTO>(profile);
 
             return profileDTO;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<ICollection<ProfileDTO>> GetAllProfilesAsync()
         {
             var profileList = await _context.Profiles.ToListAsync();
@@ -94,15 +89,12 @@ namespace Profile.API.Services
             return exceptedList;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<bool> UpdateProfileAsync(ProfileDTO profileDTO)
         {
             var profile = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == profileDTO.Id);
 
-            if (profile == null)
-            {
-                return false;
-            }
+            if (profile == null) return false;
 
             profile.FirstName = profileDTO.FirstName;
             profile.LastName = profileDTO.LastName;
@@ -115,7 +107,7 @@ namespace Profile.API.Services
             return true;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<bool> DeleteProfileByIdAsync(int id)
         {
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.Id == id);
@@ -137,7 +129,7 @@ namespace Profile.API.Services
             return true;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task<bool> DeleteProfileByUserIdAsync(int userId)
         {
             var profileFound = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);

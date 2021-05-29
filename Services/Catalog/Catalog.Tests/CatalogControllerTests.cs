@@ -19,8 +19,8 @@ namespace Catalog.Tests
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service
                     .GetAllItems())
-                    .Returns(Task.FromResult(GetAllItemsDTO()));
-            
+                .Returns(Task.FromResult(GetAllItemsDTO()));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
@@ -32,7 +32,7 @@ namespace Catalog.Tests
             // Assert
             Assert.IsType<List<ItemDTO>>(result);
         }
-        
+
         [Fact]
         public async void GetItemById_WithValidModel_Returns_ItemDTO()
         {
@@ -40,8 +40,8 @@ namespace Catalog.Tests
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service
                     .GetItemById(3))
-                    .Returns(Task.FromResult<ItemDTO>(GetItemDTO()));
-            
+                .Returns(Task.FromResult(GetItemDTO()));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
@@ -60,8 +60,8 @@ namespace Catalog.Tests
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service.GetAllCategories())
-                .Returns(Task.FromResult<List<CategoryDTO>>(GetAllCategoriesDTO()));
-            
+                .Returns(Task.FromResult(GetAllCategoriesDTO()));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
@@ -73,15 +73,15 @@ namespace Catalog.Tests
             // Assert
             Assert.IsType<List<CategoryDTO>>(result);
         }
-        
+
         [Fact]
         public async void GetCategoryById_WithValidModel_Returns_CategoryDTO()
         {
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service.GetCategoryById(1))
-                .Returns(Task.FromResult<CategoryDTO>(GetCategoryDTO()));
-            
+                .Returns(Task.FromResult(GetCategoryDTO()));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
@@ -101,14 +101,14 @@ namespace Catalog.Tests
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service
                     .AddNewCategory(It.IsAny<CategoryDTO>()))
-                    .Returns(Task.FromResult((1, true)));
-            
+                .Returns(Task.FromResult((1, true)));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
             var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
             var categoryDTO = new CategoryDTO();
-            
+
             // Act
             var result = await controller.AddNewCategory(categoryDTO);
 
@@ -116,7 +116,7 @@ namespace Catalog.Tests
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.IsAssignableFrom<CategoryDTO>(createdAtActionResult.Value);
         }
-        
+
         [Fact]
         public async void AddNewItemWithValidModel_Returns_CreatedAtActionResult()
         {
@@ -124,14 +124,14 @@ namespace Catalog.Tests
             var catalogServiceMock = new Mock<ICatalogService>();
             catalogServiceMock.Setup(service => service
                     .AddNewItem(It.IsAny<ItemDTO>()))
-                    .Returns(Task.FromResult((1, true)));
-            
+                .Returns(Task.FromResult((1, true)));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
             var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
             var itemDTO = new ItemDTO();
-            
+
             // Act
             var result = await controller.AddNewItem(itemDTO);
 
@@ -145,50 +145,50 @@ namespace Catalog.Tests
         {
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
-            
+
             catalogServiceMock.Setup(service => service
                     .GetCategoryById(It.IsAny<int>()))
-                    .Returns(Task.FromResult(GetCategoryDTO()));
-            
+                .Returns(Task.FromResult(GetCategoryDTO()));
+
             catalogServiceMock.Setup(service => service
                     .DeleteCategoryById(It.IsAny<int>()))
-                    .Returns(Task.FromResult(true));
-            
+                .Returns(Task.FromResult(true));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
             var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
-            
+
             //Act
             var result = await controller.DeleteCategoryById(1);
-            
+
             // Assert
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<int>(okObjectResult.Value);
         }
-        
+
         [Fact]
         public async void DeleteItemById_Returns_OkResult()
         {
             // Arrange
             var catalogServiceMock = new Mock<ICatalogService>();
-            
+
             catalogServiceMock.Setup(service => service
                     .GetItemById(It.IsAny<int>()))
-                    .Returns(Task.FromResult(GetItemDTO()));
-            
+                .Returns(Task.FromResult(GetItemDTO()));
+
             catalogServiceMock.Setup(service => service
                     .DeleteItemById(It.IsAny<int>()))
-                    .Returns(Task.FromResult(true));
-            
+                .Returns(Task.FromResult(true));
+
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
 
             var controller = new CatalogController(catalogServiceMock.Object, loggerMock.Object);
-            
+
             //Act
             var result = await controller.DeleteItemById(3);
-            
+
             // Assert
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<int>(okObjectResult.Value);

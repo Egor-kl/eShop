@@ -1,38 +1,38 @@
 ﻿namespace Catalog.API.DTO
 {
-    public class ItemDTO 
+    public class ItemDTO
     {
         /// <summary>
-        /// Product item identifier
+        ///     Product item identifier
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Product name
+        ///     Product name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Product item price
+        ///     Product item price
         /// </summary>
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Product description
+        ///     Product description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Path to image for product
+        ///     Path to image for product
         /// </summary>
         public string PictureFileName { get; set; }
 
         /// <summary>
-        /// Numbers of items
+        ///     Numbers of items
         /// </summary>
         public int Amount { get; set; }
 
-        
+
         public int CategoryId { get; set; }
     }
 }

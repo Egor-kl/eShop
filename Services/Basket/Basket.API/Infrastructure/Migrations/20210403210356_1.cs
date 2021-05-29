@@ -7,17 +7,17 @@ namespace Basket.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "ProfileId",
-                table: "Baskets",
-                newName: "CheckoutId");
+                "ProfileId",
+                "Baskets",
+                "CheckoutId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "CheckoutId",
-                table: "Baskets",
-                newName: "ProfileId");
+                "CheckoutId",
+                "Baskets",
+                "ProfileId");
         }
     }
 }

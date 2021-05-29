@@ -16,8 +16,8 @@ namespace Identity.API.Common.Extensions
     public static class EventBusConfiguration
     {
         public static IServiceCollection AddEventBusService(this IServiceCollection services,
-                                                            IConfiguration configuration,
-                                                            IHostEnvironment environment)
+            IConfiguration configuration,
+            IHostEnvironment environment)
         {
             var eventBusSettingsSection = configuration.GetSection("EventBusSettings");
             var eventBusSettings = eventBusSettingsSection.Get<EventBusSettings>();
@@ -57,7 +57,7 @@ namespace Identity.API.Common.Extensions
 
             services.AddScoped(typeof(IEventProducer<IProfileDeleted, int>), typeof(ProfileDeletedProducer));
             services.AddScoped(typeof(IEventProducer<IRegisterProfile, IUserDTO>), typeof(CreateProfileProducer));
-            
+
             return services;
         }
     }

@@ -6,7 +6,6 @@ namespace Email.View
     {
         public void OnGet()
         {
-            
         }
     }
 }

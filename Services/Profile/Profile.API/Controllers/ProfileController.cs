@@ -13,11 +13,11 @@ namespace Profile.API.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private readonly IProfileService _profileService;
         private readonly ILogger _logger;
+        private readonly IProfileService _profileService;
 
         /// <summary>
-        /// Constructor of profiles controller.
+        ///     Constructor of profiles controller.
         /// </summary>
         /// <param name="profileService">Service to manage profiles.</param>
         /// <param name="logger">Logging service.</param>
@@ -27,25 +27,22 @@ namespace Profile.API.Controllers
             _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         /// <summary>
-        /// Register new profile
+        ///     Register new profile
         /// </summary>
         /// <param name="profileDTO"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> RegisterNewProfile([FromBody] ProfileDTO profileDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var (id, success) = await _profileService.RegisterNewProfileAsync(profileDTO);
             if (!success)
             {
                 _logger.Warning($"{id} conflict with register");
-                return Conflict(new { Message = "Profile already exist" });
+                return Conflict(new {Message = "Profile already exist"});
             }
 
             profileDTO.Id = id;
@@ -55,17 +52,14 @@ namespace Profile.API.Controllers
         }
 
         /// <summary>
-        /// Update profile
+        ///     Update profile
         /// </summary>
         /// <param name="profileDTO"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfile([FromBody] ProfileDTO profileDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var profileById = _profileService.GetProfileByIdAsync(profileDTO.Id);
             if (profileById is null)
@@ -80,13 +74,13 @@ namespace Profile.API.Controllers
                 _logger.Warning($"{profileDTO.Id} Conflict with update");
                 return Conflict(new {Message = "Conflict with update"});
             }
-            
+
             _logger.Information($"{profileDTO.Id} update profile success");
             return Ok(profileDTO);
         }
-        
+
         /// <summary>
-        /// Get all profiles
+        ///     Get all profiles
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -101,7 +95,7 @@ namespace Profile.API.Controllers
         }
 
         /// <summary>
-        /// Get profile by id
+        ///     Get profile by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -109,25 +103,22 @@ namespace Profile.API.Controllers
         [Authorize("User, Admin")]
         public async Task<IActionResult> GetProfileById(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var profile = await _profileService.GetProfileByIdAsync(id);
-            
+
             if (profile == null)
             {
                 _logger.Warning($"{id} profile not found");
                 return NoContent();
             }
-            
+
             _logger.Information($"{id} get profile by id success");
             return Ok(profile);
         }
 
         /// <summary>
-        /// Get profile by userId
+        ///     Get profile by userId
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -135,34 +126,28 @@ namespace Profile.API.Controllers
         [Authorize("Admin")]
         public async Task<IActionResult> GetProfileByUserId(int userId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var profile = await _profileService.GetProfileByUserIdAsync(userId);
             if (profile is null)
             {
                 _logger.Warning($"{userId} profile not found");
                 return NoContent();
             }
-            
+
             _logger.Information($"{userId} get profile by user id success");
             return Ok(profile);
         }
 
         /// <summary>
-        /// Delete profile by id
+        ///     Delete profile by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfileById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var success = await _profileService.DeleteProfileByIdAsync(id);
             if (!success)

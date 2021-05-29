@@ -1,26 +1,26 @@
 ﻿using System;
+using Identity.API.Common.Settings;
 using Jaeger;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTracing.Util;
-using Identity.API.Common.Settings;
 
 namespace Identity.API.Common.Extensions
 {
     public static class JaegerConfiguration
     {
         /// <summary>
-        /// Add Jaeger service.
+        ///     Add Jaeger service.
         /// </summary>
         /// <param name="services">DI container.</param>
         /// <param name="configuration">Application configuration.</param>
         /// <param name="environment">Application environment.</param>
         /// <returns>Services with configured Jaeger.</returns>
         public static IServiceCollection AddJaegerService(this IServiceCollection services,
-                                                               IConfiguration configuration,
-                                                               IHostEnvironment environment)
+            IConfiguration configuration,
+            IHostEnvironment environment)
         {
             var jaegerSettingsSection = configuration.GetSection("JaegerSettings");
             services.Configure<JaegerSettings>(jaegerSettingsSection);
@@ -39,10 +39,7 @@ namespace Identity.API.Common.Extensions
                 var config = Configuration.FromEnv(loggerFactory);
                 var tracer = config.GetTracer();
 
-                if (!GlobalTracer.IsRegistered())
-                {
-                    GlobalTracer.Register(tracer);
-                }
+                if (!GlobalTracer.IsRegistered()) GlobalTracer.Register(tracer);
                 return tracer;
             });
             return services;

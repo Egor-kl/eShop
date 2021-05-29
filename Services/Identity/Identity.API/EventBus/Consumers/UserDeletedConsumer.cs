@@ -9,8 +9,8 @@ namespace Identity.EventBus.Consumers
 {
     public class UserDeletedConsumer : IConsumer<IUserDeleted>
     {
-        private readonly IUserService _userService;
         private readonly ILogger<UserDeletedConsumer> _logger;
+        private readonly IUserService _userService;
 
         public UserDeletedConsumer(IUserService userService, ILogger<UserDeletedConsumer> logger)
         {
@@ -19,7 +19,7 @@ namespace Identity.EventBus.Consumers
         }
 
         /// <summary>
-        /// Consume for user deleted
+        ///     Consume for user deleted
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

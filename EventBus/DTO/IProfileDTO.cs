@@ -3,7 +3,7 @@
     public interface IProfileDTO
     {
         /// <summary>
-        /// User identifier.
+        ///     User identifier.
         /// </summary>
         public int Id { get; set; }
 

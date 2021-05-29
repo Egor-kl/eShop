@@ -5,90 +5,90 @@ using Catalog.API.DTO;
 namespace Catalog.API.Common.Interfaces
 {
     /// <summary>
-    /// Interface for catalog service
+    ///     Interface for catalog service
     /// </summary>
     public interface ICatalogService
     {
         /// <summary>
-        /// Add new product category.
+        ///     Add new product category.
         /// </summary>
         /// <returns></returns>
         public Task<(int id, bool success)> AddNewCategory(CategoryDTO categoryDTO);
-        
+
         /// <summary>
-        /// Add new item.
+        ///     Add new item.
         /// </summary>
         /// <returns></returns>
         public Task<(int id, bool success)> AddNewItem(ItemDTO itemDTO);
 
         /// <summary>
-        /// Update category.
+        ///     Update category.
         /// </summary>
         /// <returns></returns>
         public Task<bool> UpdateCategory(CategoryDTO categoryDTO);
-        
+
         /// <summary>
-        /// Update item
+        ///     Update item
         /// </summary>
         /// <returns></returns>
         public Task<bool> UpdateItem(ItemDTO itemDTO);
-        
+
         /// <summary>
-        /// Get all categories.
+        ///     Get all categories.
         /// </summary>
         /// <returns></returns>
         public Task<List<CategoryDTO>> GetAllCategories();
-        
+
         /// <summary>
-        /// Get all items.
+        ///     Get all items.
         /// </summary>
         /// <returns></returns>
         public Task<List<ItemDTO>> GetAllItems();
 
         /// <summary>
-        /// Get category by name.
+        ///     Get category by name.
         /// </summary>
         /// <returns></returns>
         public Task<CategoryDTO> GetCategoryByName(string name);
-        
+
         /// <summary>
-        /// Get Item by name.
+        ///     Get Item by name.
         /// </summary>
         /// <returns></returns>
         public Task<ItemDTO> GetItemByName(string name);
-        
+
         /// <summary>
-        /// Get category by id.
+        ///     Get category by id.
         /// </summary>
         /// <returns></returns>
         public Task<CategoryDTO> GetCategoryById(int id);
-        
+
         /// <summary>
-        /// Get Item by id.
+        ///     Get Item by id.
         /// </summary>
         /// <returns></returns>
         public Task<ItemDTO> GetItemById(int id);
 
         /// <summary>
-        /// Delete item by id.
+        ///     Delete item by id.
         /// </summary>
         /// <returns></returns>
         public Task<bool> DeleteItemById(int id);
-        
+
         /// <summary>
-        /// Delete item by name.
+        ///     Delete item by name.
         /// </summary>
         /// <returns></returns>
         public Task<bool> DeleteItemByName(string name);
-        
+
         /// <summary>
-        /// Delete category by id.
+        ///     Delete category by id.
         /// </summary>
         /// <returns></returns>
         public Task<bool> DeleteCategoryById(int id);
-        
+
         /// <summary>
-        /// Delete category by name.
+        ///     Delete category by name.
         /// </summary>
         /// <returns></returns>
         public Task<bool> DeleteCategoryByName(string name);

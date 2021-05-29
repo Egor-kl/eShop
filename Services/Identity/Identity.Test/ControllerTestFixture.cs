@@ -9,14 +9,14 @@ namespace Identity.Test
     public class ControllerTestFixture
     {
         /// <summary>
-        /// Generate collection of User DTO.
+        ///     Generate collection of User DTO.
         /// </summary>
         /// <returns>Collection of User DTO.</returns>
         public ICollection<UserDTO> GetAllAccounts()
         {
-            return new List<UserDTO>()
+            return new List<UserDTO>
             {
-               new UserDTO()
+                new()
                 {
                     Id = 123,
                     Email = "test@gmail.com",
@@ -25,24 +25,24 @@ namespace Identity.Test
                     Role = "User"
                 },
 
-               new UserDTO()
-               {
-                   Id = 234,
-                   Email = "admin@gmail.com",
-                   Password = "passw@rd123",
-                   UserName = "admin",
-                   Role = "Admin"
-               },
+                new()
+                {
+                    Id = 234,
+                    Email = "admin@gmail.com",
+                    Password = "passw@rd123",
+                    UserName = "admin",
+                    Role = "Admin"
+                }
             };
         }
 
         /// <summary>
-        /// Generate single User DTO.
+        ///     Generate single User DTO.
         /// </summary>
         /// <returns>User DTO.</returns>
         public UserDTO GetAccount()
         {
-            return new UserDTO()
+            return new()
             {
                 Id = 111,
                 Email = "test@gmail.com",
@@ -53,31 +53,34 @@ namespace Identity.Test
         }
 
         /// <summary>
-        /// Get null User DTO.
+        ///     Get null User DTO.
         /// </summary>
         /// <returns>Null object.</returns>
-        public UserDTO GetNullAccount() => null;
+        public UserDTO GetNullAccount()
+        {
+            return null;
+        }
 
         /// <summary>
-        /// Generate single Login DTO.
+        ///     Generate single Login DTO.
         /// </summary>
         /// <returns>Login DTO.</returns>
         public LoginDTO GetLoginData()
         {
-            return new LoginDTO()
+            return new()
             {
                 Email = "test@gmail.com",
-                Password = "passw@rd123",
+                Password = "passw@rd123"
             };
         }
 
         /// <summary>
-        /// Generate single JWT.
+        ///     Generate single JWT.
         /// </summary>
         /// <returns>Token DTO.</returns>
         public TokenDTO GetToken()
         {
-            return new TokenDTO()
+            return new()
             {
                 Username = "admin",
                 Role = "Admin",
@@ -86,13 +89,16 @@ namespace Identity.Test
         }
 
         /// <summary>
-        /// Get null Token DTO.
+        ///     Get null Token DTO.
         /// </summary>
         /// <returns>Null object.</returns>
-        public TokenDTO GetNullToken() => null;
+        public TokenDTO GetNullToken()
+        {
+            return null;
+        }
 
         /// <summary>
-        /// Get fake controller context.
+        ///     Get fake controller context.
         /// </summary>
         /// <returns></returns>
         public ControllerContext GetFakeContext()
@@ -101,7 +107,7 @@ namespace Identity.Test
             var httpContextMock = new Mock<HttpContext>();
             httpContextMock.SetupGet(a => a.Response).Returns(responseMock.Object);
 
-            var context = new ControllerContext { HttpContext = httpContextMock.Object };
+            var context = new ControllerContext {HttpContext = httpContextMock.Object};
 
             return context;
         }

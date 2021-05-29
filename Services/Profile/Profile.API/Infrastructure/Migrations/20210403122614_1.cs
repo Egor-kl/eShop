@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Profile.API.Infrastructure.Migrations
 {
@@ -8,46 +7,46 @@ namespace Profile.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Avatars",
-                table: "Profiles");
+                "Avatars",
+                "Profiles");
 
             migrationBuilder.DropColumn(
-                name: "Purchases",
-                table: "Profiles");
+                "Purchases",
+                "Profiles");
 
             migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Profiles",
-                type: "text",
+                "Email",
+                "Profiles",
+                "text",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "UserName",
-                table: "Profiles",
-                type: "text",
+                "UserName",
+                "Profiles",
+                "text",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Profiles");
+                "Email",
+                "Profiles");
 
             migrationBuilder.DropColumn(
-                name: "UserName",
-                table: "Profiles");
+                "UserName",
+                "Profiles");
 
             migrationBuilder.AddColumn<byte[]>(
-                name: "Avatars",
-                table: "Profiles",
-                type: "bytea",
+                "Avatars",
+                "Profiles",
+                "bytea",
                 nullable: true);
 
             migrationBuilder.AddColumn<string[]>(
-                name: "Purchases",
-                table: "Profiles",
-                type: "text[]",
+                "Purchases",
+                "Profiles",
+                "text[]",
                 nullable: true);
         }
     }

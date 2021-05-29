@@ -17,19 +17,19 @@ namespace Email.Services
 {
     public class RazorViewToString : IRazorViewToString
     {
-        private readonly IRazorViewEngine _viewEngine;
-        private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ITempDataProvider _tempDataProvider;
+        private readonly IRazorViewEngine _viewEngine;
 
         /// <summary>
-        /// Constructor with default parametrs.
+        ///     Constructor with default parametrs.
         /// </summary>
         /// <param name="viewEngine">Razor view engine.</param>
         /// <param name="tempDataProvider">Temp data provider.</param>
         /// <param name="serviceProvider">Service provider.</param>
         public RazorViewToString(IRazorViewEngine viewEngine,
-                                        ITempDataProvider tempDataProvider,
-                                        IServiceProvider serviceProvider)
+            ITempDataProvider tempDataProvider,
+            IServiceProvider serviceProvider)
         {
             _viewEngine = viewEngine ?? throw new ArgumentNullException(nameof(viewEngine));
             _tempDataProvider = tempDataProvider ?? throw new ArgumentNullException(nameof(tempDataProvider));
@@ -44,12 +44,12 @@ namespace Email.Services
 
             using var output = new StringWriter();
 
-            ViewContext viewContext = new ViewContext(
+            var viewContext = new ViewContext(
                 actionContext,
                 view,
                 new ViewDataDictionary<TModel>(
-                    metadataProvider: new EmptyModelMetadataProvider(),
-                    modelState: new ModelStateDictionary())
+                    new EmptyModelMetadataProvider(),
+                    new ModelStateDictionary())
                 {
                     Model = model
                 },
@@ -63,20 +63,14 @@ namespace Email.Services
 
             return output.ToString();
         }
-        
+
         private IView FindView(ActionContext actionContext, string viewName)
         {
-            var getViewResult = _viewEngine.GetView(executingFilePath: null, viewPath: viewName, isMainPage: true);
-            if (getViewResult.Success)
-            {
-                return getViewResult.View;
-            }
+            var getViewResult = _viewEngine.GetView(null, viewName, true);
+            if (getViewResult.Success) return getViewResult.View;
 
-            var findViewResult = _viewEngine.FindView(actionContext, viewName, isMainPage: true);
-            if (findViewResult.Success)
-            {
-                return findViewResult.View;
-            }
+            var findViewResult = _viewEngine.FindView(actionContext, viewName, true);
+            if (findViewResult.Success) return findViewResult.View;
 
             var searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
             var errorMessage = string.Join(

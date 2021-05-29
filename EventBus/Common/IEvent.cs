@@ -3,12 +3,12 @@
 namespace EventBus.Common
 {
     /// <summary>
-    ///Message broker events.
+    ///     Message broker events.
     /// </summary>
     public interface IEvent
     {
         /// <summary>
-        /// Event Id.
+        ///     Event Id.
         /// </summary>
         public Guid EventId { get; set; }
     }

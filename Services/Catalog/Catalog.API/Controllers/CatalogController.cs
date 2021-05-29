@@ -16,7 +16,7 @@ namespace Catalog.API.Controllers
         private readonly ILogger _logger;
 
         /// <summary>
-        /// Constructor of catalog controller.
+        ///     Constructor of catalog controller.
         /// </summary>
         /// <param name="catalogService">Service to manage catalog.</param>
         /// <param name="logger">Logging service.</param>
@@ -28,25 +28,22 @@ namespace Catalog.API.Controllers
         }
 
         /// <summary>
-        /// Add new category
+        ///     Add new category
         /// </summary>
         /// <param name="categoryDTO">Category dto</param>
         /// <returns></returns>
         [HttpPost("/category/add")]
         public async Task<IActionResult> AddNewCategory([FromBody] CategoryDTO categoryDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(categoryDTO);
-            }
+            if (!ModelState.IsValid) return BadRequest(categoryDTO);
 
             var (id, success) = await _catalogService.AddNewCategory(categoryDTO);
             if (!success)
             {
                 _logger.Warning($"{id} conflict with add new category");
-                return Conflict(new { Message = "Category already exist" });
+                return Conflict(new {Message = "Category already exist"});
             }
-            
+
             categoryDTO.Id = id;
 
             _logger.Information($"{categoryDTO.Id} add categories success");
@@ -54,7 +51,7 @@ namespace Catalog.API.Controllers
         }
 
         /// <summary>
-        /// Get all categories
+        ///     Get all categories
         /// </summary>
         /// <returns></returns>
         [HttpGet("/categories")]
@@ -67,9 +64,9 @@ namespace Catalog.API.Controllers
 
             return categories;
         }
-        
+
         /// <summary>
-        /// Get category by id.
+        ///     Get category by id.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/category/getById/{id}")]
@@ -81,9 +78,9 @@ namespace Catalog.API.Controllers
 
             return category;
         }
-        
+
         /// <summary>
-        /// Get category by name.
+        ///     Get category by name.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -98,17 +95,14 @@ namespace Catalog.API.Controllers
         }
 
         /// <summary>
-        /// Update category
+        ///     Update category
         /// </summary>
         /// <param name="categoryDTO">category DTO</param>
         /// <returns></returns>
         [HttpPut("/category/{id}")]
         public async Task<IActionResult> UpdateCategory([FromBody] CategoryDTO categoryDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(categoryDTO);
-            }
+            if (!ModelState.IsValid) return BadRequest(categoryDTO);
 
             var categoryById = await _catalogService.GetCategoryById(categoryDTO.Id);
             if (categoryById == null)
@@ -123,13 +117,13 @@ namespace Catalog.API.Controllers
                 _logger.Warning($"{categoryDTO.Id} Conflict with update");
                 return Conflict(new {Message = "Conflict with update"});
             }
-            
+
             _logger.Information($"{categoryDTO.Id} update category success");
             return Ok(categoryDTO);
         }
-        
+
         /// <summary>
-        /// Delete category by id.
+        ///     Delete category by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -144,32 +138,29 @@ namespace Catalog.API.Controllers
             }
 
             var success = await _catalogService.DeleteCategoryById(id);
-            
+
             _logger.Information($"Delete category with id {id} success");
 
             return Ok(id);
         }
-        
+
         /// <summary>
-        /// Add new item
+        ///     Add new item
         /// </summary>
         /// <param name="itemDTO">item dto</param>
         /// <returns></returns>
         [HttpPost("/item/add")]
         public async Task<IActionResult> AddNewItem([FromBody] ItemDTO itemDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(itemDTO);
-            }
+            if (!ModelState.IsValid) return BadRequest(itemDTO);
 
             var (id, success) = await _catalogService.AddNewItem(itemDTO);
             if (!success)
             {
                 _logger.Warning($"{id} conflict with add new item");
-                return Conflict(new { Message = "Item already exist" });
+                return Conflict(new {Message = "Item already exist"});
             }
-            
+
             itemDTO.Id = id;
 
             _logger.Information($"{itemDTO.Id} add item success");
@@ -177,7 +168,7 @@ namespace Catalog.API.Controllers
         }
 
         /// <summary>
-        /// Get all items
+        ///     Get all items
         /// </summary>
         /// <returns></returns>
         [HttpGet("/items")]
@@ -190,9 +181,9 @@ namespace Catalog.API.Controllers
 
             return items;
         }
-        
+
         /// <summary>
-        /// Get item by id.
+        ///     Get item by id.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/item/getById/{id}")]
@@ -204,9 +195,9 @@ namespace Catalog.API.Controllers
 
             return item;
         }
-        
+
         /// <summary>
-        /// Get item by name.
+        ///     Get item by name.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -221,17 +212,14 @@ namespace Catalog.API.Controllers
         }
 
         /// <summary>
-        /// Update item
+        ///     Update item
         /// </summary>
         /// <param name="itemDTO">item DTO</param>
         /// <returns></returns>
         [HttpPut("/item/{id}")]
         public async Task<IActionResult> UpdateItem([FromBody] ItemDTO itemDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(itemDTO);
-            }
+            if (!ModelState.IsValid) return BadRequest(itemDTO);
 
             var itemById = await _catalogService.GetItemById(itemDTO.Id);
             if (itemById == null)
@@ -246,13 +234,13 @@ namespace Catalog.API.Controllers
                 _logger.Warning($"{itemDTO.Id} Conflict with update");
                 return Conflict(new {Message = "Conflict with update"});
             }
-            
+
             _logger.Information($"{itemDTO.Id} update item success");
             return Ok(itemDTO);
         }
-        
+
         /// <summary>
-        /// Delete item by id.
+        ///     Delete item by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -267,7 +255,7 @@ namespace Catalog.API.Controllers
             }
 
             var success = await _catalogService.DeleteItemById(id);
-            
+
             _logger.Information($"Delete item with id {id} success");
 
             return Ok(id);

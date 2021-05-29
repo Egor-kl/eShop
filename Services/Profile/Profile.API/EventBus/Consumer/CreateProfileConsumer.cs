@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EventBus.DTO;
 using EventBus.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -12,11 +11,12 @@ namespace Profile.API.EventBus.Consumer
 {
     public class CreateProfileConsumer : IConsumer<IRegisterProfile>
     {
-        private readonly IProfileService _profileService;
-        private readonly ILogger<ProfileDeletedConsumer> _logger;
         private readonly IProfileContext _context;
+        private readonly ILogger<ProfileDeletedConsumer> _logger;
+        private readonly IProfileService _profileService;
 
-        public CreateProfileConsumer(IProfileService profileService, ILogger<ProfileDeletedConsumer> logger, IProfileContext context)
+        public CreateProfileConsumer(IProfileService profileService, ILogger<ProfileDeletedConsumer> logger,
+            IProfileContext context)
         {
             _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -33,21 +33,21 @@ namespace Profile.API.EventBus.Consumer
                 var UserName = context.Message.UserName;
                 var CreationDate = context.Message.CreationDate;
                 var Email = context.Message.Email;
-                
+
                 var profileDTO = new ProfileDTO
                 {
                     UserId = UserId,
                     UserName = UserName,
                     Email = Email
                 };
-                
+
                 var success = await _profileService.RegisterNewProfileAsync(profileDTO);
                 _logger.LogInformation($"{success}");
             }
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
-            }    
+            }
         }
     }
 }

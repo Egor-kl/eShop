@@ -9,43 +9,43 @@ namespace Basket.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Items");
+                "Items");
 
             migrationBuilder.DropColumn(
-                name: "Buyer",
-                table: "Checkouts");
+                "Buyer",
+                "Checkouts");
 
             migrationBuilder.AddColumn<int>(
-                name: "BasketId",
-                table: "Checkouts",
-                type: "integer",
+                "BasketId",
+                "Checkouts",
+                "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<List<int>>(
-                name: "ItemsId",
-                table: "Baskets",
-                type: "integer[]",
+                "ItemsId",
+                "Baskets",
+                "integer[]",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "ProfileId",
-                table: "Baskets",
-                type: "integer",
+                "ProfileId",
+                "Baskets",
+                "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Checkouts_BasketId",
-                table: "Checkouts",
-                column: "BasketId",
+                "IX_Checkouts_BasketId",
+                "Checkouts",
+                "BasketId",
                 unique: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Checkouts_Baskets_BasketId",
-                table: "Checkouts",
-                column: "BasketId",
-                principalTable: "Baskets",
+                "FK_Checkouts_Baskets_BasketId",
+                "Checkouts",
+                "BasketId",
+                "Baskets",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -53,48 +53,46 @@ namespace Basket.API.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Checkouts_Baskets_BasketId",
-                table: "Checkouts");
+                "FK_Checkouts_Baskets_BasketId",
+                "Checkouts");
 
             migrationBuilder.DropIndex(
-                name: "IX_Checkouts_BasketId",
-                table: "Checkouts");
+                "IX_Checkouts_BasketId",
+                "Checkouts");
 
             migrationBuilder.DropColumn(
-                name: "BasketId",
-                table: "Checkouts");
+                "BasketId",
+                "Checkouts");
 
             migrationBuilder.DropColumn(
-                name: "ItemsId",
-                table: "Baskets");
+                "ItemsId",
+                "Baskets");
 
             migrationBuilder.DropColumn(
-                name: "ProfileId",
-                table: "Baskets");
+                "ProfileId",
+                "Baskets");
 
             migrationBuilder.AddColumn<string>(
-                name: "Buyer",
-                table: "Checkouts",
-                type: "text",
+                "Buyer",
+                "Checkouts",
+                "text",
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
+                "Items",
+                table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Amount = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    PictureFileName = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                    Id = table.Column<int>("integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Amount = table.Column<int>("integer", nullable: false),
+                    Description = table.Column<string>("text", nullable: false),
+                    Name = table.Column<string>("text", nullable: false),
+                    PictureFileName = table.Column<string>("text", nullable: false),
+                    Price = table.Column<decimal>("numeric", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Items", x => x.Id); });
         }
     }
 }

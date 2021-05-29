@@ -1,12 +1,12 @@
 ﻿namespace Identity.Common.Settings
 {
     /// <summary>
-    /// Application settings.
+    ///     Application settings.
     /// </summary>
     public class Settings
     {
         /// <summary>
-        /// Secret key.
+        ///     Secret key.
         /// </summary>
         public string Secret { get; set; }
     }

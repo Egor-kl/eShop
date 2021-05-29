@@ -14,8 +14,8 @@ namespace Catalog.API.Services
     public class CatalogService : ICatalogService
     {
         private readonly ICatalogContext _context;
-        private readonly IMapper _mapper;
         private readonly ILogger _logger;
+        private readonly IMapper _mapper;
 
         public CatalogService(ICatalogContext context, IMapper mapper, ILogger logger)
         {
@@ -57,10 +57,7 @@ namespace Catalog.API.Services
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryDTO.Id);
 
-            if (category == null)
-            {
-                return false;
-            }
+            if (category == null) return false;
 
             category.Name = categoryDTO.Name;
 
@@ -75,10 +72,7 @@ namespace Catalog.API.Services
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == itemDTO.Id);
 
-            if (item == null)
-            {
-                return false;
-            }
+            if (item == null) return false;
 
             item.Name = itemDTO.Name;
             item.Description = itemDTO.Description;
@@ -114,10 +108,7 @@ namespace Catalog.API.Services
         public async Task<CategoryDTO> GetCategoryByName(string name)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
-            if (category == null)
-            {
-                return null;
-            }
+            if (category == null) return null;
 
             var categoryDTO = _mapper.Map<Category, CategoryDTO>(category);
 
@@ -128,10 +119,7 @@ namespace Catalog.API.Services
         public async Task<ItemDTO> GetItemByName(string name)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Name == name);
-            if (item == null)
-            {
-                return null;
-            }
+            if (item == null) return null;
 
             var itemDTO = _mapper.Map<Item, ItemDTO>(item);
 
@@ -142,10 +130,7 @@ namespace Catalog.API.Services
         public async Task<CategoryDTO> GetCategoryById(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-            if (category == null)
-            {
-                return null;
-            }
+            if (category == null) return null;
 
             var categoryDTO = _mapper.Map<Category, CategoryDTO>(category);
 
@@ -156,10 +141,7 @@ namespace Catalog.API.Services
         public async Task<ItemDTO> GetItemById(int id)
         {
             var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == id);
-            if (item == null)
-            {
-                return null;
-            }
+            if (item == null) return null;
 
             var itemDTO = _mapper.Map<Item, ItemDTO>(item);
 
@@ -197,7 +179,7 @@ namespace Catalog.API.Services
 
             return true;
         }
-        
+
         /// <inheritdoc />
         public async Task<bool> DeleteCategoryById(int id)
         {

@@ -5,13 +5,13 @@ namespace Identity.DTO
     public class LoginDTO
     {
         /// <summary>
-        /// User email.
+        ///     User email.
         /// </summary>
         [Required]
         public string Email { get; set; }
 
         /// <summary>
-        /// User password.
+        ///     User password.
         /// </summary>
         [Required]
         public string Password { get; set; }

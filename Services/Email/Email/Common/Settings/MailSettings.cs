@@ -1,27 +1,27 @@
 ﻿namespace Email.Common.Settings
 {
     /// <summary>
-    /// Settings for email sender
+    ///     Settings for email sender
     /// </summary>
     public class MailSettings
     {
         /// <summary>
-        /// Server.
+        ///     Server.
         /// </summary>
         public string Server { get; set; }
 
         /// <summary>
-        /// Port.
+        ///     Port.
         /// </summary>
         public int Port { get; set; }
 
         /// <summary>
-        /// Email.
+        ///     Email.
         /// </summary>
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Password.
+        ///     Password.
         /// </summary>
         public string Password { get; set; }
     }

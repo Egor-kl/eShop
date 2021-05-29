@@ -7,9 +7,9 @@ namespace Basket.API.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "ProfileId",
-                table: "Baskets",
-                type: "integer",
+                "ProfileId",
+                "Baskets",
+                "integer",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -17,8 +17,8 @@ namespace Basket.API.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ProfileId",
-                table: "Baskets");
+                "ProfileId",
+                "Baskets");
         }
     }
 }

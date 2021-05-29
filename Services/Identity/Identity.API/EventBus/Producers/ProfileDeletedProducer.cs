@@ -13,7 +13,7 @@ namespace Identity.EventBus.Producers
         private readonly ILogger<ProfileDeletedProducer> _logger;
 
         /// <summary>
-        /// Constructor of producer for "user deleted" events.
+        ///     Constructor of producer for "user deleted" events.
         /// </summary>
         /// <param name="bus">Event bus.</param>
         /// <exception cref="ArgumentNullException"></exception>
@@ -22,7 +22,7 @@ namespace Identity.EventBus.Producers
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         public async Task<bool> Publish(int userId)
         {
             try
@@ -33,7 +33,7 @@ namespace Identity.EventBus.Producers
                 {
                     CommandId = Guid.NewGuid(),
                     UserId = userId,
-                    CreationDate = DateTime.Now,
+                    CreationDate = DateTime.Now
                 });
             }
             catch (Exception e)

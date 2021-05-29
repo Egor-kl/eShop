@@ -20,18 +20,19 @@ namespace Identity
 
         public IConfiguration Configuration { get; }
         public IHostEnvironment Environment { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityContext>(x => x.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
+            services.AddDbContext<IdentityContext>(
+                x => x.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddScopedServices();
             services.AddSerilogService();
             services.AddJwtService(Configuration);
             services.AddSwaggerService();
-            
+
             services.AddOpenTracing();
             services.AddJaegerService(Configuration, Environment);
             services.AddEventBusService(Configuration, Environment);
@@ -42,10 +43,7 @@ namespace Identity
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseCors(options => options.AllowAnyOrigin()

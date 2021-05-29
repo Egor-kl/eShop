@@ -16,8 +16,8 @@ namespace Profile.API.Common.Extensions
     public static class EventBusConfiguration
     {
         public static IServiceCollection AddEventBusService(this IServiceCollection services,
-                                                            IConfiguration configuration,
-                                                            IHostEnvironment environment)
+            IConfiguration configuration,
+            IHostEnvironment environment)
         {
             var eventBusSettingsSection = configuration.GetSection("EventBusSettings");
             var eventBusSettings = eventBusSettingsSection.Get<EventBusSettings>();

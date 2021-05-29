@@ -13,8 +13,9 @@ namespace Profile.API.Services
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            
-            var connectionString = configuration[$"ConnectionStrings: {configuration.GetConnectionString("PostgreSQLConnection")}"];
+
+            var connectionString =
+                configuration[$"ConnectionStrings: {configuration.GetConnectionString("PostgreSQLConnection")}"];
 
             var serilogConfig =
                 new LoggerConfiguration()

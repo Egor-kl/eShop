@@ -3,7 +3,7 @@
     public class AppSettings
     {
         /// <summary>
-        /// JWT Secret
+        ///     JWT Secret
         /// </summary>
         public string Secret { get; set; }
     }

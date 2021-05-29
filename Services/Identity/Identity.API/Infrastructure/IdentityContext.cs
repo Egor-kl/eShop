@@ -7,17 +7,19 @@ namespace Identity.Infrastructure
 {
     public class IdentityContext : DbContext, IIdentityContext
     {
-        /// <inheritdoc/>
+        /// <summary>
+        ///     Constructor of identity context.
+        /// </summary>
+        /// <param name="options"></param>
+        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
+        {
+        }
+
+        /// <inheritdoc />
         public DbSet<User> Users { get; set; }
 
         /// <summary>
-        /// Constructor of identity context.
-        /// </summary>
-        /// <param name="options"></param>
-        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options) { }
-
-        /// <summary>
-        /// Configure models.
+        ///     Configure models.
         /// </summary>
         /// <param name="builder">Models configurator.</param>
         protected override void OnModelCreating(ModelBuilder builder)

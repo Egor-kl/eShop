@@ -5,7 +5,7 @@ namespace Email.Common.Interfaces
     public interface IRazorViewToString
     {
         /// <summary>
-        /// Generate html document
+        ///     Generate html document
         /// </summary>
         /// <param name="viewName">View model</param>
         /// <param name="model">model</param>

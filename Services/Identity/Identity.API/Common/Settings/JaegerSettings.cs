@@ -3,27 +3,27 @@
     public class JaegerSettings
     {
         /// <summary>
-        /// Name of tracing service (in Jaeger UI).
+        ///     Name of tracing service (in Jaeger UI).
         /// </summary>
         public string ServiceName { get; set; }
 
         /// <summary>
-        /// Default agent host (Development environment).
+        ///     Default agent host (Development environment).
         /// </summary>
         public string DefaultAgentHost { get; set; }
 
         /// <summary>
-        /// Docker agent host (Production environment).
+        ///     Docker agent host (Production environment).
         /// </summary>
         public string DockerAgentHost { get; set; }
 
         /// <summary>
-        /// Jaeger agent port.
+        ///     Jaeger agent port.
         /// </summary>
         public string AgentPort { get; set; }
 
         /// <summary>
-        /// Sampler type.
+        ///     Sampler type.
         /// </summary>
         public string SamplerType { get; set; }
     }

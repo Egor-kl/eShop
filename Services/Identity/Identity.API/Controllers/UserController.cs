@@ -13,11 +13,11 @@ namespace Identity.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly ILogger _logger;
+        private readonly IUserService _userService;
 
         /// <summary>
-        /// Constructor of controller for user manage.
+        ///     Constructor of controller for user manage.
         /// </summary>
         /// <param name="userService">User management service.</param>
         /// <param name="logger">Logging service.</param>
@@ -27,36 +27,30 @@ namespace Identity.Controllers
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewAccount(UserDTO userDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var (id, success, message) = await _userService.RegisterAsync(userDTO);
             if (!success)
             {
                 _logger.Warning($"{userDTO.Email} user already exist");
-                return Conflict(new { message });
+                return Conflict(new {message});
             }
 
             _logger.Information($"{userDTO.Email} registration success!");
             userDTO.Id = id;
             return CreatedAtAction(nameof(RegisterNewAccount), userDTO);
         }
-        
+
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var token = await _userService.LoginAsync(loginDTO);
             if (token == null)
@@ -70,7 +64,7 @@ namespace Identity.Controllers
             Response.ContentType = "application/json";
             return Accepted(token);
         }
-        
+
         [HttpGet]
         public async Task<ICollection<UserDTO>> GetAccounts()
         {
@@ -80,14 +74,11 @@ namespace Identity.Controllers
             _logger.Information($"{count} count of users");
             return users;
         }
-        
+
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetAccountById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
@@ -99,14 +90,11 @@ namespace Identity.Controllers
             _logger.Information($"{user.UserName} user found");
             return Ok(user);
         }
-        
+
         [HttpGet("getByUsername/{username}")]
         public async Task<IActionResult> GetAccountByUserName([FromRoute] string username)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = await _userService.GetUserByUsernameAsync(username);
             if (user == null)
@@ -118,14 +106,11 @@ namespace Identity.Controllers
             _logger.Information($"{user.UserName} user found");
             return Ok(user);
         }
-        
+
         [HttpDelete("deleteById/{id}")]
         public async Task<IActionResult> DeleteAccountById([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var success = await _userService.DeleteUserByIdAsync(id);
             if (!success)
@@ -141,10 +126,7 @@ namespace Identity.Controllers
         [HttpPut("updateById/{id}")]
         public async Task<IActionResult> UpdateAccount([FromBody] UserDTO userDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = await _userService.GetUserByEmailAsync(userDTO.Email);
             if (user == null)
@@ -159,7 +141,7 @@ namespace Identity.Controllers
                 _logger.Warning($"{userDTO.Email} update conflict");
                 return Conflict();
             }
-            
+
             _logger.Information($"{userDTO.Email} update user succes");
             return Ok(userDTO);
         }

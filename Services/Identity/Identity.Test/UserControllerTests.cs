@@ -19,7 +19,7 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
                     .RegisterAsync(It.IsAny<UserDTO>()))
-                    .Returns(Task.FromResult((1, true, "Success")));
+                .Returns(Task.FromResult((1, true, "Success")));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -34,7 +34,7 @@ namespace Identity.Test
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.IsAssignableFrom<UserDTO>(createdAtActionResult.Value);
         }
-        
+
         [Fact]
         public async void RegisterNewAccount_WithInvalidModel_Returns_BadRequestResult()
         {
@@ -52,7 +52,7 @@ namespace Identity.Test
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
         }
-        
+
         [Fact]
         public async void RegisterNewAccount_WithValidExistingModel_Returns_ConflictResult()
         {
@@ -60,7 +60,7 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
                     .RegisterAsync(It.IsAny<UserDTO>()))
-                    .Returns(Task.FromResult((1, false, "Conflict")));
+                .Returns(Task.FromResult((1, false, "Conflict")));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Warning(It.IsAny<string>()));
@@ -82,7 +82,7 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
                     .LoginAsync(It.IsAny<LoginDTO>()))
-                    .Returns(Task.FromResult(GetToken()));
+                .Returns(Task.FromResult(GetToken()));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -99,7 +99,7 @@ namespace Identity.Test
             var acceptedResult = Assert.IsType<AcceptedResult>(result);
             Assert.IsAssignableFrom<TokenDTO>(acceptedResult.Value);
         }
-        
+
         [Fact]
         public async void Login_WhenAccountDoesNotExist_Returns_NoContentResult()
         {
@@ -107,7 +107,7 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
                     .LoginAsync(It.IsAny<LoginDTO>()))
-                    .Returns(Task.FromResult(GetNullToken()));
+                .Returns(Task.FromResult(GetNullToken()));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Warning(It.IsAny<string>()));
@@ -121,7 +121,7 @@ namespace Identity.Test
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
-        
+
         [Fact]
         public void Login_WithValidModel_Returns_AcceptedResult()
         {
@@ -129,7 +129,7 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
                     .LoginAsync(It.IsAny<LoginDTO>()))
-                    .Returns(Task.FromResult(GetToken()));
+                .Returns(Task.FromResult(GetToken()));
 
             var loggerMock = new Mock<ILogger>();
             loggerMock.Setup(c => c.Information(It.IsAny<string>()));
@@ -146,7 +146,7 @@ namespace Identity.Test
             var acceptedResult = Assert.IsType<AcceptedResult>(result);
             Assert.IsAssignableFrom<TokenDTO>(acceptedResult.Value);
         }
-        
+
         [Fact]
         public async void UpdateAccount_WithInvalidModel_Returns_BadRequestResult()
         {
@@ -171,7 +171,7 @@ namespace Identity.Test
             // Arrange
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
-                .GetUserByEmailAsync(It.IsAny<string>()))
+                    .GetUserByEmailAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetNullAccount()));
 
             var loggerMock = new Mock<ILogger>();
@@ -195,11 +195,11 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
 
             userServiceMock.Setup(service => service
-                .GetUserByEmailAsync(It.IsAny<string>()))
+                    .GetUserByEmailAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetAccount()));
 
             userServiceMock.Setup(service => service
-                .UpdateUserAsync(It.IsAny<UserDTO>()))
+                    .UpdateUserAsync(It.IsAny<UserDTO>()))
                 .Returns(Task.FromResult(false));
 
             var loggerMock = new Mock<ILogger>();
@@ -222,11 +222,11 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
 
             userServiceMock.Setup(service => service
-                .GetUserByEmailAsync(It.IsAny<string>()))
+                    .GetUserByEmailAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(GetAccount()));
 
             userServiceMock.Setup(service => service
-                .UpdateUserAsync(It.IsAny<UserDTO>()))
+                    .UpdateUserAsync(It.IsAny<UserDTO>()))
                 .Returns(Task.FromResult(true));
 
             var loggerMock = new Mock<ILogger>();
@@ -249,7 +249,7 @@ namespace Identity.Test
             // Arrange
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(service => service
-                .DeleteUserByIdAsync(It.IsAny<int>()))
+                    .DeleteUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(false));
 
             var loggerMock = new Mock<ILogger>();
@@ -272,11 +272,11 @@ namespace Identity.Test
             var userServiceMock = new Mock<IUserService>();
 
             userServiceMock.Setup(service => service
-                .GetUserByIdAsync(It.IsAny<int>()))
+                    .GetUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetAccount()));
 
             userServiceMock.Setup(service => service
-                .DeleteUserByIdAsync(It.IsAny<int>()))
+                    .DeleteUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(true));
 
             var loggerMock = new Mock<ILogger>();
@@ -291,14 +291,14 @@ namespace Identity.Test
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<int>(okObjectResult.Value);
         }
-        
+
         [Fact]
         public async void GetAccounts_Returns_CollectionOfAccountDTO()
         {
             // Arrange
             var accountServiceMock = new Mock<IUserService>();
             accountServiceMock.Setup(service => service
-                .GetAllUsersAsync())
+                    .GetAllUsersAsync())
                 .Returns(Task.FromResult(GetAllAccounts()));
 
             var loggerMock = new Mock<ILogger>();
@@ -319,7 +319,7 @@ namespace Identity.Test
             // Arrange
             var accountServiceMock = new Mock<IUserService>();
             accountServiceMock.Setup(service => service
-                .GetUserByIdAsync(It.IsAny<int>()))
+                    .GetUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetAccount()));
 
             var loggerMock = new Mock<ILogger>();
@@ -342,7 +342,7 @@ namespace Identity.Test
             // Arrange
             var accountServiceMock = new Mock<IUserService>();
             accountServiceMock.Setup(service => service
-                .GetUserByIdAsync(It.IsAny<int>()))
+                    .GetUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetAccount()));
 
             var loggerMock = new Mock<ILogger>();
@@ -365,7 +365,7 @@ namespace Identity.Test
             // Arrange
             var accountServiceMock = new Mock<IUserService>();
             accountServiceMock.Setup(service => service
-                .GetUserByIdAsync(It.IsAny<int>()))
+                    .GetUserByIdAsync(It.IsAny<int>()))
                 .Returns(Task.FromResult(GetNullAccount()));
 
             var loggerMock = new Mock<ILogger>();

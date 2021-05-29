@@ -21,12 +21,13 @@ namespace Catalog.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CatalogContext>(options => options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
+            services.AddDbContext<CatalogContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgres")));
             services.AddControllers();
             services.AddScopedServices();
             services.AddSerilogService();
             services.AddAutoMapper(typeof(Startup));
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Catalog.API", Version = "v1"});

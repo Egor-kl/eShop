@@ -1,32 +1,32 @@
 ﻿namespace Identity.Models
 {
     /// <summary>
-    /// User entity.
+    ///     User entity.
     /// </summary>
     public class User
     {
         /// <summary>
-        /// Identifier.
+        ///     Identifier.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// User email.
+        ///     User email.
         /// </summary>
         public string Email { get; set; }
 
         /// <summary>
-        /// User username.
+        ///     User username.
         /// </summary>
         public string UserName { get; set; }
 
         /// <summary>
-        /// User password.
+        ///     User password.
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
-        /// User role.
+        ///     User role.
         /// </summary>
         public string Role { get; set; }
     }

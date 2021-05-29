@@ -7,17 +7,19 @@ namespace Catalog.API.Infrastructure
 {
     public class CatalogContext : DbContext, ICatalogContext
     {
+        /// <summary>
+        ///     Constructor of identity context.
+        /// </summary>
+        /// <param name="options"></param>
+        public CatalogContext(DbContextOptions<CatalogContext> options) : base(options)
+        {
+        }
+
         public DbSet<Item> Items { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         /// <summary>
-        /// Constructor of identity context.
-        /// </summary>
-        /// <param name="options"></param>
-        public CatalogContext(DbContextOptions<CatalogContext> options) : base(options) {  }
-        
-        /// <summary>
-        /// Configure models.
+        ///     Configure models.
         /// </summary>
         /// <param name="builder">Models configurator.</param>
         protected override void OnModelCreating(ModelBuilder builder)

@@ -1,62 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices;
 
 namespace Profile.API.Models
 {
     /// <summary>
-    /// Profile entity.
+    ///     Profile entity.
     /// </summary>
     public class Profile
     {
         /// <summary>
-        /// Profile identifier.
+        ///     Profile identifier.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Username
+        ///     Username
         /// </summary>
         public string UserName { get; set; }
-        
+
         /// <summary>
-        /// User email
+        ///     User email
         /// </summary>
         public string Email { get; set; }
-        
+
         /// <summary>
-        /// First name user.
+        ///     First name user.
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Last name user.
+        ///     Last name user.
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Date of birthday user.
+        ///     Date of birthday user.
         /// </summary>
         public DateTime BirthDate { get; set; }
 
         /// <summary>
-        /// User mobile phone.
+        ///     User mobile phone.
         /// </summary>
         public string Phone { get; set; }
 
         /// <summary>
-        /// User discount.
+        ///     User discount.
         /// </summary>
         public double Discount { get; set; }
-        
+
         /// <summary>
-        /// Creation date.
+        ///     Creation date.
         /// </summary>
         public string CreationDate { get; set; }
 
         /// <summary>
-        /// User id.
+        ///     User id.
         /// </summary>
         public int UserId { get; set; }
     }

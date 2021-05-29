@@ -29,11 +29,11 @@ namespace Identity.EventBus.Producers
                 {
                     CommandId = Guid.NewGuid(),
                     UserId = data.Id,
-                    Email = data.Email,
-                    UserName = data.UserName,
+                    data.Email,
+                    data.UserName,
                     CreationDate = DateTime.Now.ToString("G")
                 });
-                
+
                 _logger.Information($"End create profile producer with user id = {data.Id}");
             }
             catch (Exception e)

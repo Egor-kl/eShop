@@ -9,8 +9,8 @@ namespace Profile.API.EventBus.Consumer
 {
     public class ProfileDeletedConsumer : IConsumer<IProfileDeleted>
     {
-        private readonly IProfileService _profileService;
         private readonly ILogger<ProfileDeletedConsumer> _logger;
+        private readonly IProfileService _profileService;
 
         public ProfileDeletedConsumer(IProfileService profileService, ILogger<ProfileDeletedConsumer> logger)
         {
@@ -31,7 +31,7 @@ namespace Profile.API.EventBus.Consumer
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
-            }       
+            }
         }
     }
 }

@@ -3,12 +3,12 @@
 namespace EventBus.Events
 {
     /// <summary>
-    /// For user deleted
+    ///     For user deleted
     /// </summary>
     public interface IUserDeleted : IEvent
     {
         /// <summary>
-        /// User Id for Identity.API
+        ///     User Id for Identity.API
         /// </summary>
         public int UserId { get; set; }
     }

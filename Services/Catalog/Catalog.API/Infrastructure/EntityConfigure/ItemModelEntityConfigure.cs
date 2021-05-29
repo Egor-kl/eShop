@@ -13,17 +13,17 @@ namespace Catalog.API.Infrastructure.EntityConfigure
             builder.HasOne(item => item.Category)
                 .WithMany(item => item.Items)
                 .HasForeignKey(item => item.CategoryId);
-            
+
             builder.Property(item => item.Name)
                 .HasMaxLength(255)
                 .IsRequired();
-            
+
             builder.Property(item => item.Price)
                 .IsRequired();
-            
+
             builder.Property(item => item.Description)
                 .IsRequired();
-            
+
             builder.Property(item => item.PictureFileName)
                 .IsRequired();
         }

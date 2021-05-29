@@ -18,7 +18,7 @@ namespace Email.Controllers
             _razorViewToString = razorViewToString ?? throw new ArgumentNullException(nameof(razorViewToString));
             _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
         }
-        
+
         [HttpPost("SendEmail")]
         public async Task<IActionResult> SendEmail(EmailDTO emailDTO)
         {

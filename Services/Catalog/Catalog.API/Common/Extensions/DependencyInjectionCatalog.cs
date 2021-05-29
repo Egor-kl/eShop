@@ -16,7 +16,7 @@ namespace Catalog.API.Common.Extensions
 
             return services;
         }
-        
+
         public static IServiceCollection AddSerilogService(this IServiceCollection services)
         {
             ILogerService serilogConfiguration = new SerilogService();
