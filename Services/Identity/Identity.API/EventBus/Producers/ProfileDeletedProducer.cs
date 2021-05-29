@@ -24,13 +24,15 @@ namespace Identity.EventBus.Producers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         
+        /// <inheritdoc/>
+
         public async Task<bool> Publish(int userId)
         {
             try
             {
                 _logger.LogInformation($"Start identity profile deleted producer with user id = {userId}");
 
-                await _bus.Publish<IProfileDeleted>(new
+                await _bus.Send<IProfileDeleted>(new
                 {
                     CommandId = Guid.NewGuid(),
                     UserId = userId,

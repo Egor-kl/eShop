@@ -29,6 +29,7 @@ namespace Email.EventBus.Consumer
                 };
 
                 await _sendEmail.SendEmailAsync(email);
+                Console.WriteLine($"End send email {email.Email} - {email.EmailType} - {email.UserName}");
             }
             catch (Exception e)
             {
