@@ -15,6 +15,7 @@ using Identity.Common.Interfaces;
 using Identity.Common.Settings;
 using Identity.DTO;
 using Identity.Models;
+using EventBus.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -29,6 +30,7 @@ namespace Identity.Services
         private readonly IMapper _mapper;
         private readonly IEventProducer<IRegisterProfile, IUserDTO> _registerProfileEventProducer;
         private readonly Settings _settings;
+        private readonly IEventProducer<ISendEmail, IEmailDTO> _sendEmailProducer;
 
         /// <summary>
         ///     Constructor of service for managing user accounts.
@@ -38,18 +40,16 @@ namespace Identity.Services
         /// <param name="settings">Application settings.</param>
         /// <param name="accountDeletedEventProducer">Event producer</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserService(IIdentityContext identityContext,
-            IMapper mapper,
-            IOptions<Settings> settings,
-            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer,
-            IEventProducer<IRegisterProfile, IUserDTO> registerProfileEventProducer)
+        public UserService(IIdentityContext identityContext, 
+                            IMapper mapper, 
+                            IOptions<Settings> settings, 
+                            IEventProducer<IProfileDeleted, int> accountDeletedEventProducer, IEventProducer<IRegisterProfile, IUserDTO> registerProfileEventProducer, IEventProducer<ISendEmail, IEmailDTO> sendEmailProducer)
         {
             _identityContext = identityContext ?? throw new ArgumentNullException(nameof(identityContext));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _accountDeletedEventProducer = accountDeletedEventProducer ??
-                                           throw new ArgumentNullException(nameof(accountDeletedEventProducer));
-            _registerProfileEventProducer = registerProfileEventProducer ??
-                                            throw new ArgumentNullException(nameof(registerProfileEventProducer));
+            _accountDeletedEventProducer = accountDeletedEventProducer ?? throw new ArgumentNullException(nameof(accountDeletedEventProducer));
+            _registerProfileEventProducer = registerProfileEventProducer ?? throw new ArgumentNullException(nameof(registerProfileEventProducer));
+            _sendEmailProducer = sendEmailProducer ?? throw new ArgumentNullException(nameof(sendEmailProducer));
             _settings = settings.Value ?? throw new ArgumentNullException(nameof(settings));
         }
 
@@ -114,6 +114,15 @@ namespace Identity.Services
             var id = account.Id;
 
             await _registerProfileEventProducer.Publish(userDTO);
+
+            var emailDTO = new EmailDTO
+            {
+                Email = userDTO.Email,
+                EmailType = EmailType.Register,
+                UserName = userDTO.UserName
+            };
+
+            await _sendEmailProducer.Publish(emailDTO);
 
             return (id, true, "Registration success!");
         }

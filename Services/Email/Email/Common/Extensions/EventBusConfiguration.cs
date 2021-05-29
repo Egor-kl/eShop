@@ -1,4 +1,5 @@
 ﻿using Email.Common.Settings;
+using Email.EventBus.Consumer;
 using GreenPipes;
 using MassTransit;
 using MassTransit.OpenTracing;
@@ -19,6 +20,9 @@ namespace Email.Common.Extensions
 
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<SendEmailConsumer>()
+                    .Endpoint(e => e.Temporary = true);
+                
                 x.AddBus(context => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     cfg.UseHealthCheck(context);
@@ -32,7 +36,7 @@ namespace Email.Common.Extensions
 
                     cfg.PropagateOpenTracingContext();
 
-                    cfg.ReceiveEndpoint("user-events", ep =>
+                    cfg.ReceiveEndpoint("email-events", ep =>
                     {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(r => r.Interval(2, 100));

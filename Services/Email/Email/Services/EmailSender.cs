@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Email.Common.Interfaces;
 using Email.Common.Settings;
 using MailKit.Net.Smtp;
+using Email.DTO;
+using EventBus.Enums;
 using MimeKit;
 using MimeKit.Text;
 
@@ -11,13 +13,28 @@ namespace Email.Services
     public class EmailSender : IEmailSender
     {
         private readonly MailSettings _mailConfig;
+        private readonly IRazorViewToString _razorViewToString;
 
-        public EmailSender(MailSettings mailConfig)
+        public EmailSender(MailSettings mailConfig, IRazorViewToString razorViewToString)
         {
             _mailConfig = mailConfig ?? throw new ArgumentNullException(nameof(mailConfig));
+            _razorViewToString = razorViewToString ?? throw new ArgumentNullException(nameof(razorViewToString));
         }
 
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(EmailDTO emailDTO)
+        {
+            var body = await _razorViewToString.RenderViewToStringAsync("Views/Register.cshtml", emailDTO);
+
+            var subject = emailDTO.EmailType switch
+            {
+                EmailType.Register => "Register on eShop!",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            await SendEmail(emailDTO.Email, subject, body);
+        }
+
+        private async Task SendEmail(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
 

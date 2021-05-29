@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EventBus.Common;
+using EventBus.DTO;
 using EventBus.Events;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
 namespace Identity.EventBus.Producers
 {
-    public class ProfileDeletedProducer : IEventProducer<IProfileDeleted, int>
+    public class SendEmailProducer : IEventProducer<ISendEmail, IEmailDTO>
     {
         private readonly IBusControl _bus;
-        private readonly ILogger<ProfileDeletedProducer> _logger;
+        private readonly ILogger<SendEmailProducer> _logger;
 
         /// <summary>
-        ///     Constructor of producer for "user deleted" events.
+        /// Constructor of producer for user deletion events.
         /// </summary>
         /// <param name="bus">Event bus.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public ProfileDeletedProducer(IBusControl bus, ILogger<ProfileDeletedProducer> logger)
+        public SendEmailProducer(IBusControl bus, ILogger<SendEmailProducer> logger)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
         
         /// <inheritdoc/>
-        public async Task<bool> Publish(int userId)
+        public async Task<bool> Publish(IEmailDTO emailDTO)
         {
             try
             {
-                _logger.LogInformation($"Start identity profile deleted producer with user id = {userId}");
-
-                await _bus.Send<IProfileDeleted>(new
+                _logger.LogInformation("Start send email producer");
+                await _bus.Publish<ISendEmail>(new
                 {
                     CommandId = Guid.NewGuid(),
-                    UserId = userId,
-                    CreationDate = DateTime.Now
+                    Email = emailDTO.Email,
+                    UserName = emailDTO.UserName,
+                    EmailType = emailDTO.EmailType,
+                    CreationDate = DateTime.Now,
                 });
+
             }
             catch (Exception e)
             {
-                _logger.LogWarning($"{e.Message}");
+                _logger.LogError($"{e.Message}");
                 return false;
             }
-
             return true;
         }
     }
