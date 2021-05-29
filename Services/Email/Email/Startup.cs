@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Email.Common.Extensions;
 using Email.Common.Interfaces;
 using Email.Common.Settings;
 using Email.Services;
@@ -25,6 +26,7 @@ namespace Email
         }
 
         public IConfiguration Configuration { get; }
+        public IHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,6 +35,11 @@ namespace Email
             services.AddSingleton<MailSettings>(Configuration.GetSection("MailSettings").Get<MailSettings>());
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddSingleton<IRazorViewToString, RazorViewToString>();
+            
+            services.AddOpenTracing();
+            services.AddJaegerService(Configuration, Environment);
+            services.AddEventBusService(Configuration, Environment);
+            
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Email", Version = "v1"}); });
         }
 

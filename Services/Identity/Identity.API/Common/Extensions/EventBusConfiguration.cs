@@ -57,7 +57,8 @@ namespace Identity.API.Common.Extensions
 
             services.AddScoped(typeof(IEventProducer<IProfileDeleted, int>), typeof(ProfileDeletedProducer));
             services.AddScoped(typeof(IEventProducer<IRegisterProfile, IUserDTO>), typeof(CreateProfileProducer));
-            
+            services.AddScoped(typeof(IEventProducer<ISendEmail, IEmailDTO>), typeof(SendEmailProducer));
+
             return services;
         }
     }
