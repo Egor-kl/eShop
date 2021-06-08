@@ -22,6 +22,9 @@ namespace Catalog.API.Infrastructure.EntityConfigure
 
             builder.Property(item => item.PictureFileName)
                 .IsRequired();
+
+            builder.Property(x => x.Amount)
+                .IsRequired();
         }
     }
 }
