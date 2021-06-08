@@ -11,6 +11,7 @@ namespace Catalog.API.Infrastructure.EntityConfigure
             builder.Property(category => category.Name)
                 .HasMaxLength(255)
                 .IsRequired();
+            builder.HasMany(x => x.Items);
         }
     }
 }
