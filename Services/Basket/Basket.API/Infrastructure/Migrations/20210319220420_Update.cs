@@ -78,21 +78,6 @@ namespace Basket.API.Infrastructure.Migrations
                 "text",
                 nullable: false,
                 defaultValue: "");
-
-            migrationBuilder.CreateTable(
-                "Items",
-                table => new
-                {
-                    Id = table.Column<int>("integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Amount = table.Column<int>("integer", nullable: false),
-                    Description = table.Column<string>("text", nullable: false),
-                    Name = table.Column<string>("text", nullable: false),
-                    PictureFileName = table.Column<string>("text", nullable: false),
-                    Price = table.Column<decimal>("numeric", nullable: false)
-                },
-                constraints: table => { table.PrimaryKey("PK_Items", x => x.Id); });
         }
     }
 }
