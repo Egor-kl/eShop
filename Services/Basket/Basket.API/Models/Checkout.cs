@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Basket.API.Models
 {
@@ -7,6 +9,8 @@ namespace Basket.API.Models
     /// </summary>
     public class Checkout
     {
+        [Key]
+        [ForeignKey("Basket")]
         public int Id { get; set; }
 
         public string City { get; set; }
@@ -32,9 +36,6 @@ namespace Basket.API.Models
         ///     CVV
         /// </summary>
         public string CardSecurityNumber { get; set; }
-
-
-        public int BasketId { get; set; }
         public Basket Basket { get; set; }
     }
 }
