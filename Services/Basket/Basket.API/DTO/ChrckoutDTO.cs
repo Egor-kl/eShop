@@ -1,16 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Basket.API.Models
+namespace Basket.API.DTO
 {
-    /// <summary>
-    ///     For transfer
-    /// </summary>
-    public class Checkout
+    public class ChrckoutDTO
     {
-        [Key]
-        [ForeignKey("Basket")]
         public int Id { get; set; }
 
         public string City { get; set; }
@@ -36,6 +29,6 @@ namespace Basket.API.Models
         ///     CVV
         /// </summary>
         public string CardSecurityNumber { get; set; }
-        public Basket Basket { get; set; }
+        public BasketDTO Basket { get; set; }
     }
 }

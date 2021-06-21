@@ -8,9 +8,13 @@ namespace Catalog.API.Infrastructure.EntityConfigure
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.HasKey(x => x.Id);
+            
             builder.Property(category => category.Name)
                 .HasMaxLength(255)
                 .IsRequired();
+            
+            builder.HasMany(x => x.Items);
         }
     }
 }

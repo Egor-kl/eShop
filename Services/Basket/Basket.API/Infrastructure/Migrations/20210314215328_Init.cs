@@ -37,21 +37,6 @@ namespace Basket.API.Infrastructure.Migrations
                     Buyer = table.Column<string>("text", nullable: false)
                 },
                 constraints: table => { table.PrimaryKey("PK_Checkouts", x => x.Id); });
-
-            migrationBuilder.CreateTable(
-                "Items",
-                table => new
-                {
-                    Id = table.Column<int>("integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>("text", nullable: false),
-                    Price = table.Column<decimal>("numeric", nullable: false),
-                    Description = table.Column<string>("text", nullable: false),
-                    PictureFileName = table.Column<string>("text", nullable: false),
-                    Amount = table.Column<int>("integer", nullable: false)
-                },
-                constraints: table => { table.PrimaryKey("PK_Items", x => x.Id); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

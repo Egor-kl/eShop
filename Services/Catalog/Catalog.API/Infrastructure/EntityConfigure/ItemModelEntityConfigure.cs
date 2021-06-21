@@ -10,10 +10,6 @@ namespace Catalog.API.Infrastructure.EntityConfigure
         {
             builder.HasKey(item => item.Id);
 
-            builder.HasOne(item => item.Category)
-                .WithMany(item => item.Items)
-                .HasForeignKey(item => item.CategoryId);
-
             builder.Property(item => item.Name)
                 .HasMaxLength(255)
                 .IsRequired();
@@ -25,6 +21,9 @@ namespace Catalog.API.Infrastructure.EntityConfigure
                 .IsRequired();
 
             builder.Property(item => item.PictureFileName)
+                .IsRequired();
+
+            builder.Property(x => x.Amount)
                 .IsRequired();
         }
     }
