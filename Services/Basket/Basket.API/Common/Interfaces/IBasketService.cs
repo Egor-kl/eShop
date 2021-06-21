@@ -9,6 +9,5 @@ namespace Basket.API.Common.Interfaces
         Task<BasketDTO> GetBasketById(int id);
         Task<ChrckoutDTO> GetCheckoutById(int id);
         Task<bool> UpdateBasket(BasketDTO basket);
-        Task<bool> AddCheckoutForBasket(ChrckoutDTO checkout);
     }
 }

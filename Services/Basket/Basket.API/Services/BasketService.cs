@@ -69,10 +69,5 @@ namespace Basket.API.Services
 
             return true;
         }
-
-        public Task<bool> AddCheckoutForBasket(ChrckoutDTO checkout)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
